@@ -110,4 +110,54 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(SETTLER));
     assertThat(game.getUnitAt(new Position(4,3)).getOwner(), is(Player.RED));
   }
+
+  @Test
+  public void shouldReturnArcherAfterRedSelection(){
+    //Player should be able to select archer
+    //City at (1,1) is RED
+    game = new GameImpl();
+    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(ARCHER));
+  }
+//  @Test
+//  public void shouldReturnLegionAfterRedSelection(){
+//    //Player should be able to select archer
+//    //City at (1,1) is RED
+//    game = new GameImpl();
+//    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(LEGION));
+//  }
+//  @Test
+//  public void shouldReturnSettlerAfterRedSelection(){
+//    //Player should be able to select archer
+//    //City at (1,1) is RED
+//    game = new GameImpl();
+//    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(SETTLER));
+//  }
+  @Test
+  public void shouldReturnSettlerAfterBlueSelection(){
+    //Player should be able to select Settler
+    //City at (4,1) is BLUE
+    game = new GameImpl();
+    assertThat(game.getCityAt(new Position(4, 1)).getProduction(), is(SETTLER));
+  }
+//  @Test
+//  public void shouldReturnLegionAfterBlueSelection(){
+//    //Player should be able to select archer
+//    //City at (4,1) is BLUE
+//    game = new GameImpl();
+//    assertThat(game.getCityAt(new Position(4, 1)).getProduction(), is(LEGION));
+//  }
+  @Test
+  public void shouldReturnPopulation1ForBlue(){
+    game = new GameImpl();
+    assertThat(game.getCityAt(new Position(4, 1)).getSize(), is(1));
+  }
+
+  @Test
+  public void shouldReturnTreasury6ForRed(){
+    game = new GameImpl();
+    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(6));
+  }
+
+
+
 }

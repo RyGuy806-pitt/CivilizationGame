@@ -37,6 +37,8 @@ public class GameImpl implements Game {
   private int year = 2900;
   private HashMap<Position, TileImpl> tileMap = new HashMap();
   private HashMap<Position, UnitImpl> unitMap = new HashMap();
+  private HashMap<Position, CityImpl> cityMap = new HashMap();
+
   public GameImpl() {
     //For world layout: tile types
     for(int i=0; i<WORLDSIZE; i++) {
@@ -59,6 +61,13 @@ public class GameImpl implements Game {
     unitMap.put(archerPos, new UnitImpl(archerPos, ARCHER, Player.RED));
     unitMap.put(legionPos, new UnitImpl(legionPos, LEGION, Player.BLUE));
     unitMap.put(settlerPos, new UnitImpl(settlerPos, SETTLER, Player.RED));
+
+    //For cities
+    Position redCity = new Position(1,1);
+    Position blueCity = new Position(4,1);
+    cityMap.put(redCity, new CityImpl(redCity, ARCHER, Player.RED));
+    cityMap.put(blueCity, new CityImpl(blueCity, SETTLER, Player.BLUE));
+
   }
   public Tile getTileAt( Position p ) {
     return tileMap.get(p);
@@ -66,7 +75,9 @@ public class GameImpl implements Game {
   public Unit getUnitAt( Position p ) {
     return unitMap.get(p);
   }
-  public City getCityAt( Position p ) { return null; }
+  public City getCityAt( Position p ) {
+    return cityMap.get(p);
+  }
   public Player getPlayerInTurn() {
     int turn;
     turn = I_turn.getTurn();
