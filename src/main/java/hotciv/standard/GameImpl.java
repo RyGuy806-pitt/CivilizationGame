@@ -33,13 +33,34 @@ public class GameImpl implements Game {
   public Tile getTileAt( Position p ) { return null; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
-  public Player getPlayerInTurn() { return null; }
-  public Player getWinner() { return null; }
+  public Player getPlayerInTurn() {
+    int turn;
+    turn = I_turn.getTurn();
+    turn++;
+    I_turn.setTurn(turn);
+    if(turn%2 == 0){
+      return Player.BLUE;
+    }
+    else {
+      return Player.RED;
+    }
+  }
+  public Player getWinner() {
+    if (getAge() >= 3000) {
+
+      return Player.RED;
+    }
+    return null;
+  }
+
   public int getAge() { return 0; }
   public boolean moveUnit( Position from, Position to ) {
     return false;
   }
-  public void endOfTurn() {}
+  public void endOfTurn() {
+    //each turn should add 100 years
+    //each turn should switch the Player in turn at the very end
+  }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {}

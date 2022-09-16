@@ -50,12 +50,12 @@ public class TestAlphaCiv {
   public void shouldBeRedAsStartingPlayer() {
     assertThat(game, is(notNullValue()));
     // TODO: reenable the assert below to get started...
-    // assertThat(game.getPlayerInTurn(), is(Player.RED));
+     assertThat(game.getPlayerInTurn(), is(Player.RED));
   }
 
   /** REMOVE ME. Not a test of HotCiv, just an example of what
       matchers the hamcrest library has... */
-  @Test
+  /**@Test
   public void shouldDefinetelyBeRemoved() {
     // Matching null and not null values
     // 'is' require an exact match
@@ -77,5 +77,14 @@ public class TestAlphaCiv {
 
     // Matchers may be combined, like is-not
     assertThat(l.get(0), is(not("Bumse")));
+  }**/
+
+
+  @Test
+  public void shouldBeBlueAsStartingPlayer() {
+    assertThat(game, is(notNullValue()));
+    // TODO: reenable the assert below to get started...
+    game.endOfTurn();
+    assertThat(game.getPlayerInTurn(), is(Player.BLUE));
   }
 }
