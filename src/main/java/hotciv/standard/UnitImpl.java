@@ -8,10 +8,10 @@ public class UnitImpl implements Unit {
     private String type;
     private Player owner;
 
-    public UnitImpl(Position p, String t){
+    public UnitImpl(Position p, String t, Player o){
         this.position = p;
         this.type = t;
-
+        this.owner = o;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public Player getOwner() {
-        return null;
+        return this.owner;
     }
 
     @Override

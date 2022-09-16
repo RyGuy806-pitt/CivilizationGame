@@ -89,6 +89,25 @@ public class TestAlphaCiv {
     game = new GameImpl();
     assertThat(game.getTileAt(new Position(4,5)).getTypeString(), is(PLAINS));
   }
-
-
+  @Test
+  public void shouldReturnArcher(){
+    //For tile (2,0), return archer for Red
+    game = new GameImpl();
+    assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(2,0)).getOwner(), is(Player.RED));
+  }
+  @Test
+  public void shouldReturnLegion(){
+    //For tile (3,2), return legion for blue
+    game = new GameImpl();
+    assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is(LEGION));
+    assertThat(game.getUnitAt(new Position(3,2)).getOwner(), is(Player.BLUE));
+  }
+  @Test
+  public void shouldReturnSettler(){
+    //For tile (4,3), return settler for Red
+    game = new GameImpl();
+    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(SETTLER));
+    assertThat(game.getUnitAt(new Position(4,3)).getOwner(), is(Player.RED));
+  }
 }

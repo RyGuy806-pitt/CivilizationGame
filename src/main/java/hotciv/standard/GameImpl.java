@@ -36,7 +36,9 @@ import static hotciv.framework.GameConstants.*;
 public class GameImpl implements Game {
   private int year = 2900;
   private HashMap<Position, TileImpl> tileMap = new HashMap();
+  private HashMap<Position, UnitImpl> unitMap = new HashMap();
   public GameImpl() {
+    //For world layout: tile types
     for(int i=0; i<WORLDSIZE; i++) {
       for(int j=0; j<WORLDSIZE; j++) {
         Position p = new Position(i, j);
@@ -49,9 +51,21 @@ public class GameImpl implements Game {
     tileMap.put(oceanPos, new TileImpl(oceanPos, OCEANS));
     tileMap.put(hillPos, new TileImpl(oceanPos, HILLS));
     tileMap.put(mountainPos, new TileImpl(oceanPos, MOUNTAINS));
+
+    //For units: troop layout
+    Position archerPos = new Position(2,0);
+    Position legionPos = new Position(3,2);
+    Position settlerPos = new Position(4,3);
+    unitMap.put(archerPos, new UnitImpl(archerPos, ARCHER, Player.RED));
+    unitMap.put(legionPos, new UnitImpl(legionPos, LEGION, Player.BLUE));
+    unitMap.put(settlerPos, new UnitImpl(settlerPos, SETTLER, Player.RED));
   }
-  public Tile getTileAt( Position p ) { return tileMap.get(p); }
-  public Unit getUnitAt( Position p ) { return null; }
+  public Tile getTileAt( Position p ) {
+    return tileMap.get(p);
+  }
+  public Unit getUnitAt( Position p ) {
+    return unitMap.get(p);
+  }
   public City getCityAt( Position p ) { return null; }
   public Player getPlayerInTurn() {
     int turn;
