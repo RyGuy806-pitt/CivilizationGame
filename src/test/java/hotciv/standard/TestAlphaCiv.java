@@ -53,111 +53,77 @@ public class TestAlphaCiv {
     // TODO: reenable the assert below to get started...
      assertThat(game.getPlayerInTurn(), is(Player.RED));
   }
-  @Test
-  public void shouldBeBlueAsStartingPlayer() {
-    assertThat(game, is(notNullValue()));
-    game.getPlayerInTurn();
-    assertThat(game.getPlayerInTurn(), is(Player.BLUE));
-  }
-  @Test
-  public void RedShouldWin(){
-    assertThat(game, is(notNullValue()));
-    game.getPlayerInTurn();
-    assertThat(game.getWinner(), is(Player.RED));
-  }
-  @Test
-  public void shouldReturnOcean(){
-    //For tile (1,0), return Oceans
-    game = new GameImpl();
-    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(OCEANS));
-  }
-  @Test
-  public void shouldReturnHills(){
-    //For tile (0,1), return Hills
-    game = new GameImpl();
-    assertThat(game.getTileAt(new Position(0,1)).getTypeString(), is(HILLS));
-  }
-  @Test
-  public void shouldReturnMountain(){
-    //For tile (2,2), return Mountains
-    game = new GameImpl();
-    assertThat(game.getTileAt(new Position(2,2)).getTypeString(), is(MOUNTAINS));
-  }
-  @Test
-  public void shouldReturnPlain(){
-    //For tile (4,5), return Plains
-    game = new GameImpl();
-    assertThat(game.getTileAt(new Position(4,5)).getTypeString(), is(PLAINS));
-  }
-  @Test
-  public void shouldReturnArcher(){
-    //For tile (2,0), return archer for Red
-    game = new GameImpl();
-    assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is(ARCHER));
-    assertThat(game.getUnitAt(new Position(2,0)).getOwner(), is(Player.RED));
-  }
-  @Test
-  public void shouldReturnLegion(){
-    //For tile (3,2), return legion for blue
-    game = new GameImpl();
-    assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is(LEGION));
-    assertThat(game.getUnitAt(new Position(3,2)).getOwner(), is(Player.BLUE));
-  }
-  @Test
-  public void shouldReturnSettler(){
-    //For tile (4,3), return settler for Red
-    game = new GameImpl();
-    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(SETTLER));
-    assertThat(game.getUnitAt(new Position(4,3)).getOwner(), is(Player.RED));
-  }
-
-  @Test
-  public void shouldReturnArcherAfterRedSelection(){
-    //Player should be able to select archer
-    //City at (1,1) is RED
-    game = new GameImpl();
-    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(ARCHER));
-  }
+//    @Test
+//    public void shouldBeBlueAsStartingPlayer() {
+//      assertThat(game, is(notNullValue()));
+//      game.getPlayerInTurn();
+//      assertThat(game.getPlayerInTurn(), is(Player.BLUE));
+//    }
 //  @Test
-//  public void shouldReturnLegionAfterRedSelection(){
-//    //Player should be able to select archer
-//    //City at (1,1) is RED
-//    game = new GameImpl();
-//    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(LEGION));
+//  public void RedShouldWin(){
+//    assertThat(game, is(notNullValue()));
+//    for(int i = 0; i <= 70; i++)
+//    {
+//      game.getPlayerInTurn();
+//    }
+//    assertThat(game.getWinner(), is(Player.RED));
 //  }
 //  @Test
-//  public void shouldReturnSettlerAfterRedSelection(){
+//  public void shouldReturnOcean(){
+//    //For tile (1,0), return Oceans
+//    assertThat(game.getTileAt(new Position(1,0)).getTypeString(), is(OCEANS));
+//  }
+//  @Test
+//  public void shouldReturnHills(){
+//    //For tile (0,1), return Hills
+//    assertThat(game.getTileAt(new Position(0,1)).getTypeString(), is(HILLS));
+//  }
+//  @Test
+//  public void shouldReturnMountain(){
+//    //For tile (2,2), return Mountains
+//    assertThat(game.getTileAt(new Position(2,2)).getTypeString(), is(MOUNTAINS));
+//  }
+//  @Test
+//  public void shouldReturnPlain(){
+//    //For tile (4,5), return Plains
+//    assertThat(game.getTileAt(new Position(4,5)).getTypeString(), is(PLAINS));
+//  }
+//  @Test
+//  public void shouldReturnArcher(){
+//    //For tile (2,0), return archer for Red
+//    assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is(ARCHER));
+//    assertThat(game.getUnitAt(new Position(2,0)).getOwner(), is(Player.RED));
+//  }
+//  @Test
+//  public void shouldReturnLegion(){
+//    //For tile (3,2), return legion for blue
+//    assertThat(game.getUnitAt(new Position(3,2)).getTypeString(), is(LEGION));
+//    assertThat(game.getUnitAt(new Position(3,2)).getOwner(), is(Player.BLUE));
+//  }
+//  @Test
+//  public void shouldReturnSettler(){
+//    //For tile (4,3), return settler for Red
+//    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(SETTLER));
+//    assertThat(game.getUnitAt(new Position(4,3)).getOwner(), is(Player.RED));
+//  }
+//  @Test
+//  public void shouldReturnArcherAfterRedSelection(){
 //    //Player should be able to select archer
 //    //City at (1,1) is RED
-//    game = new GameImpl();
-//    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(SETTLER));
+//    assertThat(game.getCityAt(new Position(1, 1)).getProduction(), is(ARCHER));
 //  }
-  @Test
-  public void shouldReturnSettlerAfterBlueSelection(){
-    //Player should be able to select Settler
-    //City at (4,1) is BLUE
-    game = new GameImpl();
-    assertThat(game.getCityAt(new Position(4, 1)).getProduction(), is(SETTLER));
-  }
 //  @Test
-//  public void shouldReturnLegionAfterBlueSelection(){
-//    //Player should be able to select archer
+//  public void shouldReturnSettlerAfterBlueSelection(){
+//    //Player should be able to select Settler
 //    //City at (4,1) is BLUE
-//    game = new GameImpl();
-//    assertThat(game.getCityAt(new Position(4, 1)).getProduction(), is(LEGION));
+//    assertThat(game.getCityAt(new Position(4, 1)).getProduction(), is(SETTLER));
 //  }
-  @Test
-  public void shouldReturnPopulation1ForBlue(){
-    game = new GameImpl();
-    assertThat(game.getCityAt(new Position(4, 1)).getSize(), is(1));
-  }
-
-  @Test
-  public void shouldReturnTreasury6ForRed(){
-    game = new GameImpl();
-    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(6));
-  }
-
-
-
+//  @Test
+//  public void shouldReturnPopulation1ForBlue(){
+//    assertThat(game.getCityAt(new Position(4, 1)).getSize(), is(1));
+//  }
+//  @Test
+//  public void shouldReturnTreasury6ForRed(){
+//    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(6));
+//  }
 }

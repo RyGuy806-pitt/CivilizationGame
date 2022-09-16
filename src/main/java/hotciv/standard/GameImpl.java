@@ -34,7 +34,7 @@ import static hotciv.framework.GameConstants.*;
 */
 
 public class GameImpl implements Game {
-  private int year = 2900;
+  private int year = -4000;
   private HashMap<Position, TileImpl> tileMap = new HashMap();
   private HashMap<Position, UnitImpl> unitMap = new HashMap();
   private HashMap<Position, CityImpl> cityMap = new HashMap();
@@ -80,10 +80,10 @@ public class GameImpl implements Game {
   }
   public Player getPlayerInTurn() {
     int turn;
-    turn = I_turn.getTurn();
+    turn = TurnImpl.getTurn();
     turn++;
-    I_turn.setTurn(turn);
-    year = year + 100;
+    TurnImpl.setTurn(turn);
+    endOfTurn();
     if(turn%2 == 0){
       return Player.BLUE;
     }
@@ -99,15 +99,36 @@ public class GameImpl implements Game {
     return null;
   }
 
-  public int getAge() { return year; }
+  public int getAge() {
+    return year;
+  }
   public boolean moveUnit( Position from, Position to ) {
     return false;
   }
   public void endOfTurn() {
     //each turn should add 100 years
     //each turn should switch the Player in turn at the very end
+    year = year + 100;
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
-  public void performUnitActionAt( Position p ) {}
+  public void performUnitActionAt( Position p ) {
+    String unit = getUnitAt(p).getTypeString();
+    if(unit == ARCHER)
+    {
+      //for AlphaCiv, do nothing
+    }
+    else if(unit == LEGION)
+    {
+      //for AlphaCiv, do nothing
+    }
+    else if(unit == SETTLER)
+    {
+      //for AlphaCiv, do nothing
+    }
+    else //for no units
+    {
+      //always do nothing
+    }
+  }
 }
