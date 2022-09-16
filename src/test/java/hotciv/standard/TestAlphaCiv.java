@@ -84,7 +84,14 @@ public class TestAlphaCiv {
   public void shouldBeBlueAsStartingPlayer() {
     assertThat(game, is(notNullValue()));
     // TODO: reenable the assert below to get started...
-    game.endOfTurn();
+    game.getPlayerInTurn();
     assertThat(game.getPlayerInTurn(), is(Player.BLUE));
+  }
+
+  @Test
+  public void RedShouldWin(){
+    assertThat(game, is(notNullValue()));
+    game.getPlayerInTurn();
+    assertThat(game.getWinner(), is(Player.RED));
   }
 }

@@ -30,6 +30,7 @@ import hotciv.framework.*;
 */
 
 public class GameImpl implements Game {
+  private int year = 2900;
   public Tile getTileAt( Position p ) { return null; }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) { return null; }
@@ -38,6 +39,7 @@ public class GameImpl implements Game {
     turn = I_turn.getTurn();
     turn++;
     I_turn.setTurn(turn);
+    year = year + 100;
     if(turn%2 == 0){
       return Player.BLUE;
     }
@@ -53,7 +55,7 @@ public class GameImpl implements Game {
     return null;
   }
 
-  public int getAge() { return 0; }
+  public int getAge() { return year; }
   public boolean moveUnit( Position from, Position to ) {
     return false;
   }
