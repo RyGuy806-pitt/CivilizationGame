@@ -103,11 +103,21 @@ public class GameImpl implements Game {
     return year;
   }
   public boolean moveUnit( Position from, Position to ) {
+    //replace with none
+    //rewrite unit at map location
+    UnitImpl unit = unitMap.get(from);
+    String type = unit.getTypeString();
+    Player own = unit.getOwner();
+    unitMap.remove(from);
+    unitMap.remove(to);
+    unitMap.put(to, new UnitImpl(to, type, own));
+
     return false;
   }
   public void endOfTurn() {
     //each turn should add 100 years
     //each turn should switch the Player in turn at the very end
+    //treasury + 6
     year = year + 100;
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

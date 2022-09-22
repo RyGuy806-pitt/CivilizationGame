@@ -126,4 +126,9 @@ public class TestAlphaCiv {
 //  public void shouldReturnTreasury6ForRed(){
 //    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(6));
 //  }
+  @Test
+  public void AttackSettlerWithLegion(){
+    game.moveUnit(new Position(3,2), new Position(4,3));
+    assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(LEGION));
+  }
 }
