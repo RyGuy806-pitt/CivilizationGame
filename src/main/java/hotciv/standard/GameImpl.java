@@ -101,7 +101,22 @@ public class GameImpl implements Game {
         if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
           c.DecrementTreasury();
           unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), ARCHER, Player.BLUE));
+        } else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
+          c.DecrementTreasury();
+          unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), ARCHER, Player.BLUE));
+        } else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
+          c.DecrementTreasury();
+          unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), ARCHER, Player.BLUE));
+        } else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
+          c.DecrementTreasury();
+          unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), ARCHER, Player.BLUE));
+        } else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
+          c.DecrementTreasury();
+          unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), ARCHER, Player.BLUE));
+        } else {
+          //do nothing
         }
+
       }
 
       return Player.BLUE;
@@ -128,6 +143,7 @@ public class GameImpl implements Game {
     String type = unit.getTypeString();
     Player own = unit.getOwner();
     unitMap.remove(from);
+    unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
     unitMap.remove(to);
     unitMap.put(to, new UnitImpl(to, type, own));
 
