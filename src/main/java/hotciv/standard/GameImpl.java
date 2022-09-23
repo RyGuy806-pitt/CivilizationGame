@@ -5,7 +5,7 @@ import hotciv.framework.*;
 import java.util.HashMap;
 
 import static hotciv.framework.GameConstants.*;
-
+//this is hotfix for Release2.1
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 

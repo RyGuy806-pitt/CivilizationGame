@@ -294,4 +294,5 @@ public class TestAlphaCiv {
     game.getPlayerInTurn();
     assertThat(game.getUnitAt(new Position(0, 1)).getTypeString(), is(ARCHER));
   }
+
 }
