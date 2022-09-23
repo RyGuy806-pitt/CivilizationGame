@@ -45,6 +45,7 @@ public class GameImpl implements Game {
       for(int j=0; j<WORLDSIZE; j++) {
         Position p = new Position(i, j);
         tileMap.put(p, new TileImpl(p, PLAINS));
+        unitMap.put(p, new UnitImpl(p, "nothing", Player.GREEN));
       }
     }
     Position oceanPos = new Position(1,0);
@@ -61,6 +62,7 @@ public class GameImpl implements Game {
     unitMap.put(archerPos, new UnitImpl(archerPos, ARCHER, Player.RED));
     unitMap.put(legionPos, new UnitImpl(legionPos, LEGION, Player.BLUE));
     unitMap.put(settlerPos, new UnitImpl(settlerPos, SETTLER, Player.RED));
+
 
     //For cities
     Position redCity = new Position(1,1);
@@ -85,6 +87,23 @@ public class GameImpl implements Game {
     TurnImpl.setTurn(turn);
     endOfTurn();
     if(turn%2 == 0){
+      //this part needs to take a position input of the city in its own function
+      CityImpl c = cityMap.get(new Position(4,1));
+      c.IncrementTreasury();
+
+
+      Position p = c.getPosition();
+      int row = p.getRow();
+      int column = p.getColumn();
+      int Treasury_value = c.getTreasury();
+
+      if(Treasury_value >= c.getProductCost()){
+        if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
+          c.DecrementTreasury();
+          unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), ARCHER, Player.BLUE));
+        }
+      }
+
       return Player.BLUE;
     }
     else {
@@ -118,6 +137,7 @@ public class GameImpl implements Game {
     //each turn should add 100 years
     //each turn should switch the Player in turn at the very end
     //treasury + 6
+
     year = year + 100;
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

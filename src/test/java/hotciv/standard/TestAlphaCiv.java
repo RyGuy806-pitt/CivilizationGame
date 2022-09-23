@@ -131,4 +131,18 @@ public class TestAlphaCiv {
     game.moveUnit(new Position(3,2), new Position(4,3));
     assertThat(game.getUnitAt(new Position(4,3)).getTypeString(), is(LEGION));
   }
+
+  @Test
+  public void ProduceTroops(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();
+    assertThat(game.getUnitAt(new Position(3, 1)).getTypeString(), is(ARCHER));
+  }
+
+  @Test
+  public void DecrementTreasury(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();
+    assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(8));
+  }
 }
