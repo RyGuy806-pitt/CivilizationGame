@@ -88,37 +88,8 @@ public class GameImpl implements Game {
     endOfTurn();
     if(turn%2 == 0){
       //this part needs to take a position input of the city in its own function
-      CityImpl c = cityMap.get(new Position(4,1));
-      c.IncrementTreasury();
-
-
-      Position p = c.getPosition();
-      int row = p.getRow();
-      int column = p.getColumn();
-      int Treasury_value = c.getTreasury();
-
-      if(Treasury_value >= c.getProductCost()){
-        if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
-          c.DecrementTreasury();
-          unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), ARCHER, Player.BLUE));
-        } else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
-          c.DecrementTreasury();
-          unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), ARCHER, Player.BLUE));
-        } else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
-          c.DecrementTreasury();
-          unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), ARCHER, Player.BLUE));
-        } else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
-          c.DecrementTreasury();
-          unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), ARCHER, Player.BLUE));
-        } else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
-          c.DecrementTreasury();
-          unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), ARCHER, Player.BLUE));
-        } else {
-          //do nothing
-        }
-
-      }
-
+      produceTroopForCity(cityMap.get(new Position(4,1)));
+      produceTroopForCity(cityMap.get(new Position(1,1)));
       return Player.BLUE;
     }
     else {
@@ -175,6 +146,54 @@ public class GameImpl implements Game {
     else //for no units
     {
       //always do nothing
+    }
+  }
+  public void produceTroopForCity(CityImpl c){
+
+    c.IncrementTreasury();//Increment each round
+    Position p = c.getPosition();
+
+    int row = p.getRow();//values needed from city
+    int column = p.getColumn();
+    int Treasury_value = c.getTreasury();
+
+    if(Treasury_value >= c.getProductCost()){
+      if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), ARCHER, Player.BLUE));
+      }
+      else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), ARCHER, Player.BLUE));
+      }
+      else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), ARCHER, Player.BLUE));
+      }
+      else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), ARCHER, Player.BLUE));
+      }
+      else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), ARCHER, Player.BLUE));
+      }else if((unitMap.get(new Position( row+1, column-1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), ARCHER, Player.BLUE));
+      }
+      else if((unitMap.get(new Position( row, column-1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), ARCHER, Player.BLUE));
+      }
+      else if((unitMap.get(new Position( row-1, column-1)).getTypeString() == "nothing")) {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), ARCHER, Player.BLUE));
+      }
+      else {
+        c.DecrementTreasury();
+        unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), ARCHER, Player.BLUE));
+      }
+
     }
   }
 }

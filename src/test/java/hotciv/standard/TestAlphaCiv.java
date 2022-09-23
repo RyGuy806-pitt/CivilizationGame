@@ -178,7 +178,120 @@ public class TestAlphaCiv {
     game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
     game.getPlayerInTurn();
     game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
-    assertThat(game.getUnitAt(new Position(5, 2)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(5, 1)).getTypeString(), is(ARCHER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(14));
+  }
+  @Test
+  public void DecrementTreasuryFifthTroop(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 12 - 4
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 18 - 4*2
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 36 - 4*5 = 16
+    assertThat(game.getUnitAt(new Position(5, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(16));
+  }
+
+  @Test
+  public void DecrementTreasurySixthTroop(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 12 - 4
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 18 - 4*2
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 36 - 4*5 = 16
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 42 - 4*6 = 18
+    assertThat(game.getUnitAt(new Position(4, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(18));
+  }
+
+  @Test
+  public void DecrementTreasurySeventhTroop(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 12 - 4
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 18 - 4*2
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 36 - 4*5 = 16
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 42 - 4*6 = 18
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 48 - 4*7 = 20
+    assertThat(game.getUnitAt(new Position(3, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(20));
+  }
+
+  @Test
+  public void DecrementTreasuryEighthTroop(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 12 - 4
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 18 - 4*2
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 36 - 4*5 = 16
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 42 - 4*6 = 18
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 48 - 4*7 = 20
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 48 - 4*7 = 22
+    assertThat(game.getUnitAt(new Position(4, 1)).getTypeString(), is(ARCHER));
+    assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(22));
+  }
+
+  @Test
+  public void DecrementTreasuryNinthTroop(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 12 - 4
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 18 - 4*2
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 24 - 4*3 = 12
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 30 - 4*4 = 14
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 36 - 4*5 = 16
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 42 - 4*6 = 18
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 48 - 4*7 = 20
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 54 - 4*8 = 22
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();//treasury should be 60 - 4*9 = 24
+    assertThat(game.getUnitAt(new Position(1, 1)).getTypeString(), is(ARCHER));
+    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(24));
+  }
+
+  @Test
+  public void RedDecrementTreasury(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();
+    assertThat(game.getCityAt(new Position(1, 1)).getTreasury(), is(8));
+  }
+
+  @Test
+  public void RedProduceTroops(){
+    game.getPlayerInTurn();
+    game.getPlayerInTurn();
+    assertThat(game.getUnitAt(new Position(0, 1)).getTypeString(), is(ARCHER));
   }
 }
