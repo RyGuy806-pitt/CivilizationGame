@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import VersionControl.AlphaVersion;
 import hotciv.framework.*;
 
 import org.junit.*;
@@ -44,7 +45,7 @@ public class TestAlphaCiv {
   /** Fixture for alphaciv testing. */
   @Before
   public void setUp() {
-    game = new GameImpl();
+    game = new GameImpl(new AlphaVersion());
   }
   // FRS p. 455 states that 'Red is the first player to take a turn'.
   @Test
@@ -61,8 +62,8 @@ public class TestAlphaCiv {
     }
   @Test
   public void RedShouldWin(){
-    assertThat(game, is(notNullValue()));
-    for(int i = 0; i <= 70; i++)
+    //assertThat(game, is(notNullValue()));
+    for(int i = 0; i <= 72; i++)
     {
       game.getPlayerInTurn();
     }
@@ -295,3 +296,4 @@ public class TestAlphaCiv {
     assertThat(game.getUnitAt(new Position(0, 1)).getTypeString(), is(ARCHER));
   }
 }
+//change

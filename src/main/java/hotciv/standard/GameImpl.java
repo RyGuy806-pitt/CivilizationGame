@@ -1,5 +1,10 @@
 package hotciv.standard;
 
+import Strategies.Aging;
+import Strategies.UnitAction;
+import Strategies.Winner;
+import Strategies.WorldMap;
+import VersionControl.Version;
 import hotciv.framework.*;
 
 import java.util.HashMap;
@@ -39,8 +44,19 @@ public class GameImpl implements Game {
   private HashMap<Position, UnitImpl> unitMap = new HashMap();
   private HashMap<Position, CityImpl> cityMap = new HashMap();
 
-  public GameImpl() {
+  private Winner WinnerStrat;
+  private UnitAction UnitActionStrat;
+  private WorldMap WorldMapStrat;
+  private Aging AgingStrat;
+
+  public GameImpl(Version Var) {
+    this.WinnerStrat = Var.createWinner();
+    this.AgingStrat = Var.createAging();
+    this.WorldMapStrat = Var.createWorldMap();
+    this.UnitActionStrat = Var.createUnitAction();
+
     //For world layout: tile types
+    //This part stays in game Impl
     for(int i=0; i<WORLDSIZE; i++) {
       for(int j=0; j<WORLDSIZE; j++) {
         Position p = new Position(i, j);
@@ -48,27 +64,8 @@ public class GameImpl implements Game {
         unitMap.put(p, new UnitImpl(p, "nothing", Player.GREEN));
       }
     }
-    Position oceanPos = new Position(1,0);
-    Position hillPos = new Position(0,1);
-    Position mountainPos = new Position(2,2);
-    tileMap.put(oceanPos, new TileImpl(oceanPos, OCEANS));
-    tileMap.put(hillPos, new TileImpl(oceanPos, HILLS));
-    tileMap.put(mountainPos, new TileImpl(oceanPos, MOUNTAINS));
 
-    //For units: troop layout
-    Position archerPos = new Position(2,0);
-    Position legionPos = new Position(3,2);
-    Position settlerPos = new Position(4,3);
-    unitMap.put(archerPos, new UnitImpl(archerPos, ARCHER, Player.RED));
-    unitMap.put(legionPos, new UnitImpl(legionPos, LEGION, Player.BLUE));
-    unitMap.put(settlerPos, new UnitImpl(settlerPos, SETTLER, Player.RED));
-
-
-    //For cities
-    Position redCity = new Position(1,1);
-    Position blueCity = new Position(4,1);
-    cityMap.put(redCity, new CityImpl(redCity, ARCHER, Player.RED));
-    cityMap.put(blueCity, new CityImpl(blueCity, SETTLER, Player.BLUE));
+    WorldMapStrat.worldBuild(this, unitMap, cityMap, tileMap);
 
   }
   public Tile getTileAt( Position p ) {
@@ -86,6 +83,7 @@ public class GameImpl implements Game {
     turn++;
     TurnImpl.setTurn(turn);
     endOfTurn();
+    getWinner();
     if(turn%2 == 0){
       //this part needs to take a position input of the city in its own function
       produceTroopForCity(cityMap.get(new Position(4,1)));
@@ -97,15 +95,11 @@ public class GameImpl implements Game {
     }
   }
   public Player getWinner() {
-    if (getAge() >= 3000) {
-
-      return Player.RED;
-    }
-    return null;
+    return WinnerStrat.calculateWinner(this);
   }
 
   public int getAge() {
-    return year;
+    return AgingStrat.calculateTime();
   }
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
@@ -131,22 +125,23 @@ public class GameImpl implements Game {
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {
     String unit = getUnitAt(p).getTypeString();
-    if(unit == ARCHER)
-    {
-      //for AlphaCiv, do nothing
-    }
-    else if(unit == LEGION)
-    {
-      //for AlphaCiv, do nothing
-    }
-    else if(unit == SETTLER)
-    {
-      //for AlphaCiv, do nothing
-    }
-    else //for no units
-    {
-      //always do nothing
-    }
+    UnitActionStrat.setUnitAction(this, p, unitMap, cityMap);
+//    if(unit == ARCHER)
+//    {
+//      //for AlphaCiv, do nothing
+//    }
+//    else if(unit == LEGION)
+//    {
+//      //for AlphaCiv, do nothing
+//    }
+//    else if(unit == SETTLER)
+//    {
+//      //for AlphaCiv, do nothing
+//    }
+//    else //for no units
+//    {
+//      //always do nothing
+//    }
   }
   public void produceTroopForCity(CityImpl c){
 
