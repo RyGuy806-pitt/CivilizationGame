@@ -110,7 +110,7 @@ public class GameImpl implements Game {
     unitMap.remove(from);
     unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
     unitMap.remove(to);
-    if(cityMap.get(to).getOwner() != null){
+    if(cityMap.get(to) != null){
       cityMap.put(to, new CityImpl(to, type, own));
     }
     unitMap.put(to, new UnitImpl(to, type, own));

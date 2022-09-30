@@ -16,50 +16,34 @@ import java.util.HashMap;
 import static hotciv.framework.GameConstants.*;
 
 public class DeltaWorldMap implements WorldMap{
-    Position oceanPos = new Position(1,0);
-    Position hillPos = new Position(0,1);
-    Position mountainPos = new Position(2,2);
-
     Position redCity = new Position(8,12);
     Position blueCity = new Position(4,5);
+
+    String[] layout =
+            new String[] {
+                    "...ooMooooo.....",
+                    "..ohhoooofffoo..",
+                    ".oooooMooo...oo.",
+                    ".ooMMMoooo..oooo",
+                    "...ofooohhoooo..",
+                    ".ofoofooooohhoo.",
+                    "...ooo..........",
+                    ".ooooo.ooohooM..",
+                    ".ooooo.oohooof..",
+                    "offfoooo.offoooo",
+                    "oooooooo...ooooo",
+                    ".ooMMMoooo......",
+                    "..ooooooffoooo..",
+                    "....ooooooooo...",
+                    "..ooohhoo.......",
+                    ".....ooooooooo..",
+            };
 
 
     @Override
     public void worldBuild(GameImpl g, HashMap<Position, UnitImpl> unitMap, HashMap<Position, CityImpl> cityMap, HashMap<Position, TileImpl> tileMap) {
-        cityMap.put(redCity, new CityImpl(redCity, ARCHER, Player.RED));
-        cityMap.put(blueCity, new CityImpl(blueCity, SETTLER, Player.BLUE));
-        tileMap.put(oceanPos, new TileImpl(oceanPos, OCEANS));
-        tileMap.put(hillPos, new TileImpl(oceanPos, HILLS));
-        tileMap.put(mountainPos, new TileImpl(oceanPos, MOUNTAINS));
-    }
-    private Map<Position,Tile> defineWorld() {
-        // Basically we use a 'data driven' approach - code the
-        // layout in a simple semi-visual representation, and
-        // convert it to the actual Game representation.
-        String[] layout =
-                new String[] {
-                        "...ooMooooo.....",
-                        "..ohhoooofffoo..",
-                        ".oooooMooo...oo.",
-                        ".ooMMMoooo..oooo",
-                        "...ofooohhoooo..",
-                        ".ofoofooooohhoo.",
-                        "...ooo..........",
-                        ".ooooo.ooohooM..",
-                        ".ooooo.oohooof..",
-                        "offfoooo.offoooo",
-                        "oooooooo...ooooo",
-                        ".ooMMMoooo......",
-                        "..ooooooffoooo..",
-                        "....ooooooooo...",
-                        "..ooohhoo.......",
-                        ".....ooooooooo..",
-                };
-        // Conversion...
-        Map<Position,Tile> theWorld = new HashMap<Position,Tile>();
-        String line;
         for ( int r = 0; r < GameConstants.WORLDSIZE; r++ ) {
-            line = layout[r];
+            String line = layout[r];
             for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
                 char tileChar = line.charAt(c);
                 String type = "error";
@@ -69,9 +53,10 @@ public class DeltaWorldMap implements WorldMap{
                 if ( tileChar == 'f' ) { type = GameConstants.FOREST; }
                 if ( tileChar == 'h' ) { type = GameConstants.HILLS; }
                 Position p = new Position(r,c);
-                //theWorld.put( p, new StubTile(type));
+                tileMap.put( p, new TileImpl(p, type));
             }
         }
-        return theWorld;
+        cityMap.put(redCity, new CityImpl(redCity, ARCHER, Player.RED));
+        cityMap.put(blueCity, new CityImpl(blueCity, SETTLER, Player.BLUE));
     }
 }
