@@ -29,7 +29,19 @@ public class GammaUnitAction implements UnitAction{
         }
         else if(unitName == ARCHER)
         {
-            unit.getDefensiveStrength();
+//            if(UM.get(p).getDefensiveStrength() == 1) {
+//                UM.get(p).fortified();
+//            }
+//
+//            if(UM.get(p).getDefensiveStrength() == 2) {
+//                UM.get(p).notFortified();
+//            }
+            if(UM.get(p).checkFortified() == false) {
+                UM.get(p).fortified();
+            }
+            else{
+                UM.get(p).notFortified();
+            }
         }
         else if(unitName == LEGION)
         {

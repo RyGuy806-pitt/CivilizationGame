@@ -32,25 +32,30 @@ public class TestDeltaCiv {
         assertThat(game.getTileAt(new Position(0,0)).getTypeString(), is(OCEANS));
     }
     @Test
-    public void ReturnPlainsAtPositionOneOne() {
+    public void ReturnOceansAtPositionOneOne() {
         assertThat(game.getTileAt(new Position(1,1)).getTypeString(), is(OCEANS));
     }
 
     @Test
-    public void ReturnPlainsAtPositionZeroFive() {
+    public void ReturnMountainsAtPositionZeroFive() {
         assertThat(game.getTileAt(new Position(0,5)).getTypeString(), is(MOUNTAINS));
     }
-//    @Test
-//    public void ReturnMountainsAtPositionOneSix() {
-//        assertThat(game.getTileAt(new Position(1,6)).getTypeString(), is(MOUNTAINS));
-//    }
-//    @Test
-//    public void ReturnForestAtPositionNineFourteen() {
-//        assertThat(game.getTileAt(new Position(9,14)).getTypeString(), is(FOREST));
-//    }
-//    @Test
-//    public void ReturnHillsAtPositionFifteenFive() {
-//        assertThat(game.getTileAt(new Position(15,5)).getTypeString(), is(HILLS));
-//    }
+
+    @Test
+    public void ReturnForestAtPositionOneTen() {
+        assertThat(game.getTileAt(new Position(1,9)).getTypeString(), is(FOREST));
+    }
+    @Test
+    public void ReturnMountainsAtPositionThreeFour() {
+        assertThat(game.getTileAt(new Position(3,4)).getTypeString(), is(MOUNTAINS));
+    }
+    @Test
+    public void ReturnForestAtPositionNineFourteen() {
+        assertThat(game.getTileAt(new Position(8,13)).getTypeString(), is(FOREST));
+    }
+    @Test
+    public void ReturnHillsAtPositionFifteenFive() {
+        assertThat(game.getTileAt(new Position(14,6)).getTypeString(), is(HILLS));
+    }
 
 }
