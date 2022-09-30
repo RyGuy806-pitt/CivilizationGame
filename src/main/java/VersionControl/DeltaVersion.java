@@ -1,19 +1,14 @@
 package VersionControl;
 
-import Strategies.Aging;
-import Strategies.UnitAction;
-import Strategies.Winner;
-import Strategies.WorldMap;
+import Strategies.*;
 
 public class DeltaVersion implements Version{
     @Override
-    public Aging createAging() {
-        return null;
-    }
+    public Aging createAging() { return new AlphaAging(); }
 
     @Override
     public Winner createWinner() {
-        return null;
+        return new AlphaWinner();
     }
 
     @Override
@@ -23,6 +18,6 @@ public class DeltaVersion implements Version{
 
     @Override
     public WorldMap createWorldMap() {
-        return null;
+        return new DeltaWorldMap();
     }
 }
