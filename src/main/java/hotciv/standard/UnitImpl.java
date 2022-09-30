@@ -7,6 +7,7 @@ public class UnitImpl implements Unit {
     private Position position;
     private String type;
     private Player owner;
+    private int defensiveStrength = 1;
 
     public UnitImpl(Position p, String t, Player o){
         this.position = p;
@@ -30,8 +31,17 @@ public class UnitImpl implements Unit {
     }
 
     @Override
-    public int getDefensiveStrength() {
-        return 0;
+    public int getDefensiveStrength()
+    {
+        if(defensiveStrength == 1)
+        {
+            defensiveStrength = 2;
+        }
+        else if (defensiveStrength == 2)
+        {
+            defensiveStrength = 1;
+        }
+        return defensiveStrength;
     }
 
     @Override

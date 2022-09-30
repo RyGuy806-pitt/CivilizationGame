@@ -107,14 +107,16 @@ public class GameImpl implements Game {
     UnitImpl unit = unitMap.get(from);
     String type = unit.getTypeString();
     Player own = unit.getOwner();
-    unitMap.remove(from);
-    unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
-    unitMap.remove(to);
-    if(cityMap.get(to) != null){
-      cityMap.put(to, new CityImpl(to, type, own));
+    if (type == ARCHER && unit.getDefensiveStrength() == 1)
+    {
+      unitMap.remove(from);
+      unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
+      unitMap.remove(to);
+      if (cityMap.get(to) != null) {
+        cityMap.put(to, new CityImpl(to, type, own));
+      }
+      unitMap.put(to, new UnitImpl(to, type, own));
     }
-    unitMap.put(to, new UnitImpl(to, type, own));
-
     return false;
   }
   public void endOfTurn() {

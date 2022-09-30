@@ -14,7 +14,6 @@ import static hotciv.framework.GameConstants.*;
 public class GammaUnitAction implements UnitAction{
     @Override
     public void setUnitAction(GameImpl g, Position p, HashMap<Position, UnitImpl> UM, HashMap<Position, CityImpl> CM) {
-        //string unit = g.getUnitAt(p).getTypeString();
         UnitImpl unit = UM.get(p);
         String unitName = unit.getTypeString();
         Player owner = unit.getOwner();
@@ -30,7 +29,7 @@ public class GammaUnitAction implements UnitAction{
         }
         else if(unitName == ARCHER)
         {
-            //
+            unit.getDefensiveStrength();
         }
         else if(unitName == LEGION)
         {
