@@ -1,28 +1,25 @@
 package VersionControl;
 
-import Strategies.Aging;
-import Strategies.UnitAction;
-import Strategies.Winner;
-import Strategies.WorldMap;
+import Strategies.*;
 
 public class GammaVersion implements Version{
     @Override
     public Aging createAging() {
-        return null;
+        return new AlphaAging();
     }
 
     @Override
     public Winner createWinner() {
-        return null;
+        return new AlphaWinner();
     }
 
     @Override
     public UnitAction createUnitAction() {
-        return null;
+        return new GammaUnitAction();
     }
 
     @Override
     public WorldMap createWorldMap() {
-        return null;
+        return new AlphaWorldMap();
     }
 }

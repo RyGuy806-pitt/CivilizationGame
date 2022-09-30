@@ -127,24 +127,7 @@ public class GameImpl implements Game {
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
   public void performUnitActionAt( Position p ) {
-    String unit = getUnitAt(p).getTypeString();
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap);
-//    if(unit == ARCHER)
-//    {
-//      //for AlphaCiv, do nothing
-//    }
-//    else if(unit == LEGION)
-//    {
-//      //for AlphaCiv, do nothing
-//    }
-//    else if(unit == SETTLER)
-//    {
-//      //for AlphaCiv, do nothing
-//    }
-//    else //for no units
-//    {
-//      //always do nothing
-//    }
   }
   public void produceTroopForCity(CityImpl c){
 
