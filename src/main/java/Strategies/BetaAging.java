@@ -1,7 +1,7 @@
 package Strategies;
 
 public class BetaAging implements Aging{
-    int y = -4000;
+    private int y = -4000;
     @Override
     public int calculateTime() {
         //-4000--100 (+=100)
@@ -28,7 +28,7 @@ public class BetaAging implements Aging{
         }
         //1900-1970 (+=5)
         else if(y >= 1900 && y < 1970){
-            y += 25;
+            y += 5;
         }
         //1970-onward (+=1)
         else{

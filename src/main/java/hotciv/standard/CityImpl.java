@@ -29,6 +29,8 @@ public class CityImpl implements City {
         return this.owner;
     }
 
+    public void setOwner(Player p){ this.owner = p; }
+
     @Override
     public int getSize() {
         return population;
