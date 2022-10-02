@@ -29,6 +29,14 @@ public class TestIntegration {
 
         assertThat(game.getAge(), is(1775));
     }
+    @Test   //BetaCiv
+    public void RedShouldWin(){
+        //assertThat(game, is(notNullValue()));
+        //game.getCityAt(new Position(1, 1))
+        game = new GameImpl(new BetaVersion());
+        game.moveUnit(new Position(4,3), new Position(4,1));
+        assertThat(game.getWinner(), is(Player.RED));
+    }
     @Test   //DeltaCiv
     public void ReturnBlueCityForPositionFourFive() {
         game = new GameImpl(new DeltaVersion());
