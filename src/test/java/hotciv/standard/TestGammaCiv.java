@@ -32,7 +32,7 @@ public class TestGammaCiv {
         game.performUnitActionAt(new Position(4, 3));
         assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));
     }
-
+    @Test
     public void ArcherDefensiveStrengthDoubleToTwo() {
         game.performUnitActionAt(new Position(4, 3));
         assertThat(game.getUnitAt(new Position(4, 3)).getTypeString(), is("nothing"));
