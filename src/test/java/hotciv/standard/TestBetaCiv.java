@@ -42,13 +42,14 @@ public class TestBetaCiv {
     @Test
     public void ShouldBeYear3900BC(){
         //game.getPlayerInTurn();
+        game.endOfTurn();
         assertThat(game.getAge(), is(-3900));
     }
 
     @Test
     public void ShouldBeYear1BC(){
-        for(int i = 0; i<39; i++){
-            game.getAge();
+        for(int i = 0; i<40; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(-1));
@@ -56,8 +57,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear1AD(){
-        for(int i = 0; i<40; i++){
-            game.getAge();
+        for(int i = 0; i<41; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(1));
@@ -65,8 +66,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear50AD(){
-        for(int i = 0; i<41; i++){
-            game.getAge();
+        for(int i = 0; i<42; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(50));
@@ -74,8 +75,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear100AD(){
-        for(int i = 0; i<42; i++){
-            game.getAge();
+        for(int i = 0; i<43; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(100));
@@ -83,8 +84,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear1775AD(){
-        for(int i = 0; i<76; i++){
-            game.getAge();
+        for(int i = 0; i<77; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(1775));
@@ -92,8 +93,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear1905AD(){
-        for(int i = 0; i<82; i++){
-            game.getAge();
+        for(int i = 0; i<83; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(1905));
@@ -101,8 +102,8 @@ public class TestBetaCiv {
 
     @Test
     public void ShouldBeYear1971AD(){
-        for(int i = 0; i<96; i++){
-            game.getAge();
+        for(int i = 0; i<97; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(1971));

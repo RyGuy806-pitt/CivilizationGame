@@ -23,8 +23,8 @@ public class TestIntegration {
     @Test   //BetaCiv
     public void ShouldBeYear1775AD(){
         game = new GameImpl(new BetaVersion());
-        for(int i = 0; i<76; i++){
-            game.getAge();
+        for(int i = 0; i<77; i++){
+            game.endOfTurn();
         }
 
         assertThat(game.getAge(), is(1775));

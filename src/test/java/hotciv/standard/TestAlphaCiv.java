@@ -70,6 +70,7 @@ public class TestAlphaCiv {
       game.getPlayerInTurn();
     }
     assertThat(game.getWinner(), is(Player.RED));
+    assertThat(game.getAge(), is(3300));
   }
   @Test
   public void shouldReturnOcean(){

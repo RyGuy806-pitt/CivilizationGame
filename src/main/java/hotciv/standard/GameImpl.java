@@ -94,7 +94,11 @@ public class GameImpl implements Game {
   }
 
   public int getAge() {
-    return AgingStrat.calculateTime();
+    return year;
+  }
+
+  public void calcAge() {
+    year =  AgingStrat.calculateTime();
   }
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
@@ -130,7 +134,8 @@ public class GameImpl implements Game {
     }
     else {
     }
-    year = year + 100;
+    //year = year + 100;
+    calcAge();
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
