@@ -78,10 +78,10 @@ public class GameImpl implements Game {
     return cityMap.get(p);
   }
   public Player getPlayerInTurn() {
-    int turn;
+    int turn_count;
     //endOfTurn();
-    turn = TurnImpl.getTurn();
-    if(turn%2 == 0){
+    turn_count = TurnImpl.getTurn();
+    if(turn_count%2 == 0){
       //this part needs to take a position input of the city in its own function
       return Player.RED;
     }
@@ -97,7 +97,7 @@ public class GameImpl implements Game {
     return year;
   }
 
-  public void calcAge() {
+  public void calculateAge() {
     year =  AgingStrat.calculateTime();
   }
   public boolean moveUnit( Position from, Position to ) {
@@ -115,6 +115,7 @@ public class GameImpl implements Game {
         cityMap.put(to, new CityImpl(to, type, own));
       }
       unitMap.put(to, new UnitImpl(to, type, own));
+      return true;
     }
     return false;
   }
@@ -122,12 +123,12 @@ public class GameImpl implements Game {
     //each turn should add 100 years
     //each turn should switch the Player in turn at the very end
     //treasury + 6
-    int turn;
-    turn = TurnImpl.getTurn();
-    turn++;
-    TurnImpl.setTurn(turn);
+    int turn_count;
+    turn_count = TurnImpl.getTurn();
+    turn_count++;
+    TurnImpl.setTurn(turn_count);
     getWinner();
-    if(turn%2 == 0){
+    if(turn_count%2 == 0){
       //this part needs to take a position input of the city in its own function
       produceTroopForCity(cityMap.get(new Position(4,1)));
       produceTroopForCity(cityMap.get(new Position(1,1)));
@@ -135,7 +136,7 @@ public class GameImpl implements Game {
     else {
     }
     //year = year + 100;
-    calcAge();
+    calculateAge();
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
