@@ -14,26 +14,28 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestBetaCiv {
     private Game game;
 
-    /** Fixture for alphaciv testing. */
+    /**
+     * Fixture for alphaciv testing.
+     */
     @Before
     public void setUp() {
         game = new GameImpl(new BetaVersion());
     }
 
     @Test
-    public void RedShouldOwnBlueCity(){
+    public void RedShouldOwnBlueCity() {
         //assertThat(game, is(notNullValue()));
         //game.getCityAt(new Position(1, 1))
-        assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.BLUE));
-        game.moveUnit(new Position(4,3), new Position(4,1));
-        assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.RED));
+        assertThat(game.getCityAt(new Position(4, 1)).getOwner(), is(Player.BLUE));
+        game.moveUnit(new Position(4, 3), new Position(4, 1));
+        assertThat(game.getCityAt(new Position(4, 1)).getOwner(), is(Player.RED));
     }
 
     @Test
-    public void RedShouldWin(){
+    public void RedShouldWin() {
         //assertThat(game, is(notNullValue()));
         //game.getCityAt(new Position(1, 1))
-        game.moveUnit(new Position(4,3), new Position(4,1));
+        game.moveUnit(new Position(4, 3), new Position(4, 1));
         assertThat(game.getWinner(), is(Player.RED));
     }
 

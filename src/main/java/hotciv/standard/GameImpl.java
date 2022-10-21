@@ -79,19 +79,14 @@ public class GameImpl implements Game {
   }
   public Player getPlayerInTurn() {
     int turn;
+    //endOfTurn();
     turn = TurnImpl.getTurn();
-    turn++;
-    TurnImpl.setTurn(turn);
-    endOfTurn();
-    getWinner();
     if(turn%2 == 0){
       //this part needs to take a position input of the city in its own function
-      produceTroopForCity(cityMap.get(new Position(4,1)));
-      produceTroopForCity(cityMap.get(new Position(1,1)));
-      return Player.BLUE;
+      return Player.RED;
     }
     else {
-      return Player.RED;
+      return Player.BLUE;
     }
   }
   public Player getWinner() {
@@ -123,7 +118,18 @@ public class GameImpl implements Game {
     //each turn should add 100 years
     //each turn should switch the Player in turn at the very end
     //treasury + 6
-
+    int turn;
+    turn = TurnImpl.getTurn();
+    turn++;
+    TurnImpl.setTurn(turn);
+    getWinner();
+    if(turn%2 == 0){
+      //this part needs to take a position input of the city in its own function
+      produceTroopForCity(cityMap.get(new Position(4,1)));
+      produceTroopForCity(cityMap.get(new Position(1,1)));
+    }
+    else {
+    }
     year = year + 100;
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

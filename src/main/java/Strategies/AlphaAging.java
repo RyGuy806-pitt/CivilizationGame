@@ -8,4 +8,5 @@ public class AlphaAging implements Aging{
         y += 100;
         return y;
     }
+
 }
