@@ -22,4 +22,7 @@ public class BetaVersion implements Version{
     public WorldMap createWorldMap() {
         return new AlphaWorldMap();
     }
+
+    @Override
+    public Attack createAttack(){ return new AlphaAttack(); }
 }

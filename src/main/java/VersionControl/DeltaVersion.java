@@ -20,4 +20,7 @@ public class DeltaVersion implements Version{
     public WorldMap createWorldMap() {
         return new DeltaWorldMap();
     }
+
+    @Override
+    public Attack createAttack(){ return new AlphaAttack(); }
 }

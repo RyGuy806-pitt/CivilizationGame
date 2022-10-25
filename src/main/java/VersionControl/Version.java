@@ -1,9 +1,6 @@
 package VersionControl;
 
-import Strategies.Aging;
-import Strategies.UnitAction;
-import Strategies.Winner;
-import Strategies.WorldMap;
+import Strategies.*;
 
 public interface Version {
     Aging createAging();
@@ -13,4 +10,6 @@ public interface Version {
     UnitAction createUnitAction();
 
     WorldMap createWorldMap();
+
+    Attack createAttack();
 }

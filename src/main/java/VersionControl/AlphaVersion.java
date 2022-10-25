@@ -16,4 +16,8 @@ public class AlphaVersion implements Version{
 
     @Override
     public WorldMap createWorldMap() { return new AlphaWorldMap(); }
+
+    @Override
+    public Attack createAttack(){ return new AlphaAttack(); }
+
 }

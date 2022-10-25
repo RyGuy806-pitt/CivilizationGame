@@ -40,6 +40,8 @@ import static hotciv.framework.GameConstants.*;
 
 public class GameImpl implements Game {
   private int year = -4000;
+  private int redPlayerWinCounter = 0;
+  private int bluePlayerWinCounter = 0;
   private HashMap<Position, TileImpl> tileMap = new HashMap();
   private HashMap<Position, UnitImpl> unitMap = new HashMap();
   private HashMap<Position, CityImpl> cityMap = new HashMap();
@@ -190,5 +192,21 @@ public class GameImpl implements Game {
       }
 
     }
+  }
+
+  public void setRedWins(int x){
+    redPlayerWinCounter = x;
+  }
+
+  public int getRedWins(){
+    return redPlayerWinCounter;
+  }
+
+  public void setBlueWins(int x){
+    bluePlayerWinCounter = x;
+  }
+
+  public int getBlueWins(){
+    return bluePlayerWinCounter;
   }
 }
