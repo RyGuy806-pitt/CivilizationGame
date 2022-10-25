@@ -42,25 +42,25 @@ public class TestGammaCiv {
     public void ArcherDefensiveStrengthIncreaseTo2() {
         //game.performUnitActionAt(new Position(2, 0));
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(2));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(6));
     }
 
     @Test
     public void ArcherDefensiveStrengthDecreaseTo1() {
         //game.performUnitActionAt(new Position(2, 0));
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
         game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
     }
 
     @Test
     public void ArcherCannotMoveTwoZero(){
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
         game.moveUnit(new Position(2, 0), new Position(2,1));
         assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is(ARCHER));
@@ -70,7 +70,7 @@ public class TestGammaCiv {
     @Test
     public void ArcherCanMoveTwoOne(){
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
         game.performUnitActionAt(new Position(2, 0));
         game.moveUnit(new Position(2, 0), new Position(2,1));

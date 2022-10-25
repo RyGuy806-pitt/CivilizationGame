@@ -3,11 +3,16 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 
+import static hotciv.framework.GameConstants.*;
+
 public class UnitImpl implements Unit {
     private Position position;
     private String type;
     private Player owner;
-    int defensiveStrength = 1;
+    int ArcherStrength = 3;
+    int defensiveStrength = 0;
+    int offensiveStrength = 0;
+
 
     public UnitImpl(Position p, String t, Player o){
         this.position = p;
@@ -27,30 +32,52 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getMoveCount() {
-        return 0;
+        return 1;
     }
 
     @Override
     public int getDefensiveStrength()
     {
+        if(type == ARCHER){
+            defensiveStrength = ArcherStrength;
+        } else if (type == SETTLER) {
+            defensiveStrength = 3;
+        } else if (type == LEGION) {
+            defensiveStrength = 2;
+        } else {
+            //do nothing
+        }
         return defensiveStrength;
     }
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+        if(type == ARCHER){
+            offensiveStrength = 2;
+        } else if (type == SETTLER) {
+            offensiveStrength = 0;
+        } else if (type == LEGION) {
+            offensiveStrength = 4;
+        } else {
+            //do nothing
+        }
+        return offensiveStrength;
     }
 
     public void fortified(){
-        defensiveStrength =2;
+        if(type == ARCHER) {
+            ArcherStrength = 6;
+        }
     }
 
     public void notFortified(){
-        defensiveStrength =1;
+        if(type == ARCHER) {
+            ArcherStrength = 3;
+        }
     }
 
     public boolean checkFortified(){
-        if(defensiveStrength == 2){
+        if(ArcherStrength == 6){
             return true;
         }
         else{

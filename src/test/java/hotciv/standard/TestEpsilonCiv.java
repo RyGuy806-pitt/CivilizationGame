@@ -88,4 +88,22 @@ public class TestEpsilonCiv {
         g.moveUnit(new Position(4,3), new Position(3,2));
         assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(LEGION));
     }
+
+    @Test
+    public void CheckSettlerStrengths() {
+
+        GameImpl g = new GameImpl(new EpsilonVersion());
+        assertThat(g.getUnitAt(new Position (4, 3)).getDefensiveStrength(), is(3));
+        assertThat(g.getUnitAt(new Position (4, 3)).getTypeString(), is(SETTLER));
+    }
+
+    @Test
+    public void CheckLegionStrengths() {
+
+        GameImpl g = new GameImpl(new EpsilonVersion());
+        assertThat(g.getUnitAt(new Position (3, 2)).getAttackingStrength(), is(4));
+        assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(LEGION));
+    }
+
+
 }
