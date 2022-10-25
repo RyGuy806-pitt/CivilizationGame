@@ -39,44 +39,9 @@ public class TestGammaCiv {
     }
 
     @Test
-    public void ArcherDefensiveStrengthIncreaseTo2() {
-        //game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
-        game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(2));
-    }
-
-    @Test
     public void ArcherDefensiveStrengthDecreaseTo1() {
-        //game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
-        game.performUnitActionAt(new Position(2, 0));
-        game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
-    }
-
-    @Test
-    public void ArcherCannotMoveTwoZero(){
-        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
-        game.performUnitActionAt(new Position(2, 0));
-        game.moveUnit(new Position(2, 0), new Position(2,1));
-        assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2,1)).getTypeString(), is("nothing"));
-
-    }
-    @Test
-    public void ArcherCanMoveTwoOne(){
-        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
-        game.performUnitActionAt(new Position(2, 0));
-        game.performUnitActionAt(new Position(2, 0));
-        game.moveUnit(new Position(2, 0), new Position(2,1));
-        assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is("nothing"));
-        assertThat(game.getUnitAt(new Position(2,1)).getTypeString(), is(ARCHER));
-
+        game.performUnitActionAt(new Position(4, 3));
+        assertThat(game.getCityAt(new Position(4, 3)).getOwner(), is(Player.RED));
     }
 }
 
