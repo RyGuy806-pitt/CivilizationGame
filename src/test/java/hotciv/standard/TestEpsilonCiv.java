@@ -8,6 +8,8 @@ import hotciv.framework.Position;
 import org.junit.Before;
 import org.junit.Test;
 
+import static hotciv.framework.GameConstants.LEGION;
+import static hotciv.framework.GameConstants.SETTLER;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -69,11 +71,21 @@ public class TestEpsilonCiv {
         assertThat(g.performAttack(new Position(2, 1), new Position(1,1)), is(false));
     }
 
-//    @Test
-//    public void AttackTrueAndMoveUnit() {
-//
-//        GameImpl g = new GameImpl(new AlphaVersion());
-//        g.moveUnit(new Position(4,3), new Position(3,2));
-//        assertThat(g.getUnitAt(new Position (3, 2), is()));
-//    }
+    @Test
+    public void AlphaAttackTrueAndMoveUnit() {
+
+        GameImpl g = new GameImpl(new AlphaVersion());
+        assertThat(g.getUnitAt(new Position (4, 3)).getTypeString(), is(SETTLER));
+        g.moveUnit(new Position(4,3), new Position(3,2));
+        assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(SETTLER));
+    }
+
+    @Test
+    public void EpsilonAttackTrueAndMoveUnit() {
+
+        GameImpl g = new GameImpl(new EpsilonVersion());
+        assertThat(g.getUnitAt(new Position (4, 3)).getTypeString(), is(SETTLER));
+        g.moveUnit(new Position(4,3), new Position(3,2));
+        assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(LEGION));
+    }
 }
