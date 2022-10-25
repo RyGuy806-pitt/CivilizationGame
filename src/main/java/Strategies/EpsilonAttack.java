@@ -2,7 +2,7 @@ package Strategies;
 
 import hotciv.framework.Game;
 
-import javax.swing.text.Position;
+import hotciv.framework.Position;
 
 public class EpsilonAttack implements Attack{
 

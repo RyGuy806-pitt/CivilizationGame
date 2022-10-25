@@ -1,9 +1,6 @@
 package hotciv.standard;
 
-import Strategies.Aging;
-import Strategies.UnitAction;
-import Strategies.Winner;
-import Strategies.WorldMap;
+import Strategies.*;
 import VersionControl.Version;
 import hotciv.framework.*;
 
@@ -50,12 +47,14 @@ public class GameImpl implements Game {
   private UnitAction UnitActionStrat;
   private WorldMap WorldMapStrat;
   private Aging AgingStrat;
+  private Attack AttackStrat;
 
   public GameImpl(Version Var) {
     this.WinnerStrat = Var.createWinner();
     this.AgingStrat = Var.createAging();
     this.WorldMapStrat = Var.createWorldMap();
     this.UnitActionStrat = Var.createUnitAction();
+    this.AttackStrat = Var.createAttack();
 
     //For world layout: tile types
     //This part stays in game Impl
@@ -102,22 +101,27 @@ public class GameImpl implements Game {
   public void calculateAge() {
     year =  AgingStrat.calculateTime();
   }
+
+  public boolean performAttack(Position to, Position from){
+    return AttackStrat.attack(this, to, from);
+  }
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
     //rewrite unit at map location
     UnitImpl unit = unitMap.get(from);
     String type = unit.getTypeString();
     Player own = unit.getOwner();
-    if ((type == ARCHER && unit.getDefensiveStrength() == 1) || type != ARCHER)
-    {
-      unitMap.remove(from);
-      unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
-      unitMap.remove(to);
-      if (cityMap.get(to) != null) {
-        cityMap.put(to, new CityImpl(to, type, own));
+    if(performAttack(to, from) == true) {
+      if ((type == ARCHER && unit.getDefensiveStrength() == 1) || type != ARCHER) {
+        unitMap.remove(from);
+        unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
+        unitMap.remove(to);
+        if (cityMap.get(to) != null) {
+          cityMap.put(to, new CityImpl(to, type, own));
+        }
+        unitMap.put(to, new UnitImpl(to, type, own));
+        return true;
       }
-      unitMap.put(to, new UnitImpl(to, type, own));
-      return true;
     }
     return false;
   }
@@ -209,4 +213,6 @@ public class GameImpl implements Game {
   public int getBlueWins(){
     return bluePlayerWinCounter;
   }
+
+
 }

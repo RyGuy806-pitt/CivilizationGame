@@ -1,8 +1,8 @@
 package Strategies;
 
 import hotciv.framework.Game;
+import hotciv.framework.Position;
 
-import javax.swing.text.Position;
 
 public class AlphaAttack implements Attack{
 
