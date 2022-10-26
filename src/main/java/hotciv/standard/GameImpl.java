@@ -123,6 +123,10 @@ public class GameImpl implements Game {
         return true;
       }
     }
+    else{
+      unitMap.remove(from);
+      unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
+    }
     return false;
   }
   public void endOfTurn() {
