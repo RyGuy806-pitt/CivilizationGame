@@ -1,15 +1,11 @@
 package hotciv.stub;
 
-import Strategies.EpsilonAttack;
-import hotciv.framework.*;
-import hotciv.standard.Utility;
-
-
-import java.util.Iterator;
+import hotciv.framework.Player;
+import hotciv.framework.Unit;
 
 import static hotciv.framework.GameConstants.ARCHER;
 
-public class UnitOneStub implements Unit {
+public class UnitTwoStub implements Unit {
 
     @Override
     public String getTypeString() {
@@ -28,7 +24,7 @@ public class UnitOneStub implements Unit {
 
     @Override
     public int getDefensiveStrength() {
-        return 5;
+        return 100;
     }
 
     @Override

@@ -8,6 +8,7 @@ import hotciv.framework.Tile;
 import hotciv.standard.Utility;
 
 import java.util.Iterator;
+import java.util.Random;
 
 import static hotciv.framework.GameConstants.HILLS;
 import static hotciv.framework.GameConstants.FOREST;
@@ -19,7 +20,7 @@ public class EpsilonAttack implements Attack{
         //false will mean DefensiveStrength > OffensiveStrength
         //true allows the unit to move, and will destroy the other unit
         //false will need to destroy the attacking unit
-        boolean ret = false;
+        boolean ret = true;
         if((game.getUnitAt(to).getTypeString() != "nothing") && (game.getUnitAt(from).getTypeString() != "nothing")){
             if(totalDefensiveStrength(game, to, game.getUnitAt(to).getOwner()) > totalOffensiveStrength(game, from, game.getUnitAt(from).getOwner())){
                ret = false;
@@ -74,5 +75,23 @@ public class EpsilonAttack implements Attack{
         total = defensiveStrength + terrainBonus + allyBonus;
         return total;
 
+    }
+
+    public static  int rollDice(int number, int nSides) {
+        int num = 0;
+        if(nSides >=3)
+        {
+            for(int i = 0; i < number; i++){
+                Random r = new Random();
+                int roll = r.nextInt(nSides)+1;
+                num = num + (roll % nSides)+1;
+
+            }
+        }
+        else{
+            System.out.println("Error num needs to be from 3");
+
+        }
+        return num;
     }
 }

@@ -1,15 +1,18 @@
 package hotciv.standard;
 
+import Strategies.Attack;
+import Strategies.EpsilonAttack;
 import VersionControl.AlphaVersion;
 import VersionControl.EpsilonVersion;
+import VersionControl.Version;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.stub.GameStub;
 import org.junit.Before;
 import org.junit.Test;
 
-import static hotciv.framework.GameConstants.LEGION;
-import static hotciv.framework.GameConstants.SETTLER;
+import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -68,7 +71,7 @@ public class TestEpsilonCiv {
 
         GameImpl g = new GameImpl(new EpsilonVersion());
         g.setBlueWins(1);
-        assertThat(g.performAttack(new Position(2, 1), new Position(1,1)), is(false));
+        assertThat(g.performAttack(new Position(2, 1), new Position(1,1)), is(true));
     }
 
     @Test
@@ -115,7 +118,7 @@ public class TestEpsilonCiv {
     }
 
     @Test
-    public void MoveUnitDenyMovement() {
+    public void MoveUnitDenyMovementReturnLegionFromInitialTile() {
 
         GameImpl g = new GameImpl(new EpsilonVersion());
         g.moveUnit(new Position(4, 3), new Position(3, 2));
@@ -124,11 +127,55 @@ public class TestEpsilonCiv {
     }
 
     @Test
-    public void MoveUnitRemoveTroop() {
+    public void MoveUnitRemoveTroopReturnNothingAtInitialTile() {
 
         GameImpl g = new GameImpl(new EpsilonVersion());
         g.moveUnit(new Position(4, 3), new Position(3, 2));
         assertThat(g.getUnitAt(new Position(4, 3)).getTypeString(), is("nothing"));
 
     }
+
+    @Test
+    public void TestStubMap(){
+        GameStub g = new GameStub(new EpsilonVersion());
+        assertThat(g.getUnitAt(new Position(2, 2)).getTypeString(), is(ARCHER));
+    }
+
+    @Test
+    public void TestGameStubHasUnitStubsWithDefenseFiveAndHundred(){//at 2,2 and 2,5
+        GameStub g = new GameStub(new EpsilonVersion());
+        assertThat(g.getUnitAt(new Position(2, 2)).getTypeString(), is(ARCHER));
+        assertThat(g.getUnitAt(new Position(2,2)).getDefensiveStrength(), is(5));
+        assertThat(g.getUnitAt(new Position(2, 2)).getTypeString(), is(ARCHER));
+        assertThat(g.getUnitAt(new Position(2,5)).getDefensiveStrength(), is(100));
+        //making sure the UnitStubs are in the StubGame, they return the correct values
+    }
+
+    @Test
+    public void EpsilonAttackCalculatesTerrainAndAllyBonusesReturnsTenAndSix(){
+        EpsilonAttack a = new EpsilonAttack();
+        GameStub g = new GameStub(new EpsilonVersion());
+
+        assertThat(a.totalOffensiveStrength(g, new Position(6, 6), Player.RED), is(10));
+        assertThat(a.totalOffensiveStrength(g, new Position(6, 6), Player.BLUE), is(6));
+        //the line below looks like it should work, but should not. getAttackingStrength is the natural value
+        //Either way at this point the troops should not be able to move
+        //assertThat(g.getUnitAt(new Position(6, 6)).getAttackingStrength(), is(6));
+
+    }
+    @Test
+    public void EpsilonAttackDoesNotAllowMovementWhenDefenseIsGreaterThanAttack(){
+        EpsilonAttack a = new EpsilonAttack();
+        GameStub g = new GameStub(new EpsilonVersion());
+
+        assertThat(a.totalOffensiveStrength(g, new Position(6, 6), Player.BLUE), is(6));
+        assertThat(a.totalDefensiveStrength(g, new Position(7, 7), Player.RED), is(5));
+        //assertThat(g.getUnitAt(new Position(6,6)).getOwner(), is(Player.BLUE));
+        assertThat(g.moveUnit(new Position(7,7), new Position(6,6)), is(false));
+        assertThat(g.moveUnit(new Position(6,6), new Position(7,7)), is(true));
+        assertThat(g.getUnitAt(new Position(7,7)).getOwner(), is(Player.BLUE));
+        assertThat(g.getUnitAt(new Position(6,6)).getOwner(), is(Player.GREEN));
+
+    }
+
 }
