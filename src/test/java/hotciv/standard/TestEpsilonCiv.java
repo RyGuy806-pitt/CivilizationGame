@@ -178,4 +178,14 @@ public class TestEpsilonCiv {
 //
 //    }
 
+    @Test
+    public void PlayerRedWinsAfter3Attacks(){
+        GameStub g = new GameStub(new EpsilonVersion());
+        assertThat(g.moveUnit(new Position(5,3), new Position(6,3)), is(true));
+        assertThat(g.moveUnit(new Position(5,4), new Position(6,4)), is(true));
+        assertThat(g.moveUnit(new Position(5,5), new Position(6,5)), is(true));
+        assertThat(g.getWinner(), is(Player.RED));
+
+    }
+
 }

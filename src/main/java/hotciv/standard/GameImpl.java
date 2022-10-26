@@ -111,8 +111,20 @@ public class GameImpl implements Game {
     UnitImpl unit = unitMap.get(from);
     String type = unit.getTypeString();
     Player own = unit.getOwner();
+    int RedWins = getRedWins();
+    int BlueWins = getBlueWins();
     if(performAttack(to, from) == true) {
       if ((type == ARCHER && unit.getDefensiveStrength() == 3) || type != ARCHER) {
+        if(getUnitAt(from).getOwner() == Player.RED){
+          RedWins++;
+          setRedWins(RedWins);
+        }
+
+        if(getUnitAt(from).getOwner() == Player.BLUE){
+          BlueWins++;
+          setBlueWins(BlueWins);
+        }
+
         unitMap.remove(from);
         unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
         unitMap.remove(to);
