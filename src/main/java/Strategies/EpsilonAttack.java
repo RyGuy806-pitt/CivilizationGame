@@ -62,7 +62,7 @@ public class EpsilonAttack implements Attack{
         int allyBonus = getFriendlySupport(game, position, player);
         int terrainBonus = getTerrainFactor(game, position);
         int attackStrength = game.getUnitAt(position).getAttackingStrength();
-        total = attackStrength + terrainBonus + allyBonus;
+        total = (attackStrength + terrainBonus + allyBonus) * rollDice();
         return total;
 
     }
@@ -72,26 +72,14 @@ public class EpsilonAttack implements Attack{
         int allyBonus = getFriendlySupport(game, position, player);
         int terrainBonus = getTerrainFactor(game, position);
         int defensiveStrength = game.getUnitAt(position).getAttackingStrength();
-        total = defensiveStrength + terrainBonus + allyBonus;
+        total = (defensiveStrength + terrainBonus + allyBonus) * rollDice();
         return total;
 
     }
 
-    public static  int rollDice(int number, int nSides) {
-        int num = 0;
-        if(nSides >=3)
-        {
-            for(int i = 0; i < number; i++){
-                Random r = new Random();
-                int roll = r.nextInt(nSides)+1;
-                num = num + (roll % nSides)+1;
-
-            }
-        }
-        else{
-            System.out.println("Error num needs to be from 3");
-
-        }
-        return num;
+    public static  int rollDice() {
+        Random rand = new Random();
+        int random_integer = rand.nextInt(6-1) + 1;
+        return random_integer;
     }
 }
