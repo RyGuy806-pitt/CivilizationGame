@@ -62,7 +62,7 @@ public class EpsilonAttack implements Attack{
         int allyBonus = getFriendlySupport(game, position, player);
         int terrainBonus = getTerrainFactor(game, position);
         int attackStrength = game.getUnitAt(position).getAttackingStrength();
-        total = (attackStrength + terrainBonus + allyBonus); //* rollDice();
+        total = (attackStrength + terrainBonus + allyBonus)* rollDice();//take out rollDice() to pass tests
         return total;
 
     }
@@ -72,14 +72,14 @@ public class EpsilonAttack implements Attack{
         int allyBonus = getFriendlySupport(game, position, player);
         int terrainBonus = getTerrainFactor(game, position);
         int defensiveStrength = game.getUnitAt(position).getAttackingStrength();
-        total = (defensiveStrength + terrainBonus + allyBonus); //* rollDice();
+        total = (defensiveStrength + terrainBonus + allyBonus)* rollDice();//take out rollDice() to pass tests
         return total;
 
     }
 
     public static  int rollDice() {
-        Random rand = new Random();
-        int random_integer = rand.nextInt(6-1) + 1;
+        Random r = new Random();
+        int random_integer = r.nextInt(6-1) + 1;
         return random_integer;
     }
 }
