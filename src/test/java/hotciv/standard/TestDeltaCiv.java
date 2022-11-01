@@ -15,6 +15,8 @@ import java.util.*;
 public class TestDeltaCiv {
     private Game game;
 
+    /** Fixture for DeltaCiv testing **/
+
     @Before
     public void setUp() {
         game = new GameImpl(new DeltaVersion());

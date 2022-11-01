@@ -18,6 +18,8 @@ import static hotciv.framework.GameConstants.*;
 public class DeltaWorldMap implements WorldMap{
     Position redCity = new Position(8,12);
     Position blueCity = new Position(4,5);
+    Position settlerPos = new Position(4,3);
+
 
     String[] layout =
             new String[] {
@@ -58,5 +60,6 @@ public class DeltaWorldMap implements WorldMap{
         }
         cityMap.put(redCity, new CityImpl(redCity, ARCHER, Player.RED));
         cityMap.put(blueCity, new CityImpl(blueCity, SETTLER, Player.BLUE));
+        unitMap.put(settlerPos, new UnitImpl(settlerPos, SETTLER, Player.RED));
     }
 }

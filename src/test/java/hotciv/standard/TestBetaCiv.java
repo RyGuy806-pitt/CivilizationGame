@@ -15,7 +15,7 @@ public class TestBetaCiv {
     private Game game;
 
     /**
-     * Fixture for alphaciv testing.
+     * Fixture for BetaCiv testing.
      */
     @Before
     public void setUp() {

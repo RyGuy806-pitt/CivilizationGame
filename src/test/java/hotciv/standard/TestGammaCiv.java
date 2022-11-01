@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestGammaCiv {
     private Game game;
 
-    /** Fixture for alphaciv testing. */
+    /** Fixture for GammaCiv testing. */
     @Before
     public void setUp()
     {

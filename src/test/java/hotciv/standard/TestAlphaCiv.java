@@ -42,7 +42,7 @@ import java.util.*;
 public class TestAlphaCiv {
   private Game game;
 
-  /** Fixture for alphaciv testing. */
+  /** Fixture for AlphaCiv testing. */
   @Before
   public void setUp() {
     game = new GameImpl(new AlphaVersion());

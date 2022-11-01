@@ -16,6 +16,9 @@ import static org.junit.Assert.assertThat;
 public class TestZetaCiv {
 
     private GameImpl game;
+
+    /** Fixture for ZetaCiv testing **/
+
     @Before
     public void setUp() {
         game = new GameImpl(new ZetaVersion());
