@@ -168,6 +168,7 @@ public class GameImpl implements Game {
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {
     cityMap.get(p).changeProduction(unitType);
+    cityMap.get(p).setProductCost(unitType);
   }
   public void performUnitActionAt( Position p ) {
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap);
@@ -180,42 +181,43 @@ public class GameImpl implements Game {
     int row = p.getRow();//values needed from city
     int column = p.getColumn();
     int Treasury_value = c.getTreasury();
+    String Product = c.getProduction();
 
     if(Treasury_value >= c.getProductCost()){
       if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), ARCHER, Player.BLUE));
+        unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
       }
       else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), ARCHER, Player.BLUE));
+        unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), Product, Player.BLUE));
       }
       else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), Product, Player.BLUE));
       }
       else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), Product, Player.BLUE));
       }
       else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), Product, Player.BLUE));
       }else if((unitMap.get(new Position( row+1, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), Product, Player.BLUE));
       }
       else if((unitMap.get(new Position( row, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
       }
       else if((unitMap.get(new Position( row-1, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
       }
       else {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), ARCHER, Player.BLUE));
+        unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), Product, Player.BLUE));
       }
 
     }

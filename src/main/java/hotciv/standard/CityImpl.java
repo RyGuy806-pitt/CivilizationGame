@@ -4,7 +4,8 @@ import hotciv.framework.City;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 
-import static hotciv.framework.GameConstants.ARCHER;
+import static Strategies.ThetaUnitAction.UFO;
+import static hotciv.framework.GameConstants.*;
 
 public class CityImpl implements City {
     private Position position;
@@ -68,12 +69,22 @@ public class CityImpl implements City {
         treasury -= productCost;
     }
 
-    public int getProductCost(){
-        return productCost;
-    }
+    public int getProductCost(){ return productCost; }
 
     public Position getPosition(){
         return position;
+    }
+
+    public void setProductCost(String type){
+        if(type == ARCHER || type == SETTLER || type == LEGION){
+            productCost = 4;
+        }
+        else if(type == UFO){
+            productCost = 60;
+        }
+        else{
+            productCost = 4;
+        }
     }
 
 
