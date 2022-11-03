@@ -166,7 +166,9 @@ public class GameImpl implements Game {
     calculateAge();
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-  public void changeProductionInCityAt( Position p, String unitType ) {}
+  public void changeProductionInCityAt( Position p, String unitType ) {
+    cityMap.get(p).changeProduction(unitType);
+  }
   public void performUnitActionAt( Position p ) {
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap);
   }

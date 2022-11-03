@@ -36,6 +36,10 @@ public class CityImpl implements City {
         return population;
     }
 
+    public void setSize(int x){
+        population = x;
+    }
+
     @Override
     public int getTreasury() {
         return treasury;
@@ -44,6 +48,10 @@ public class CityImpl implements City {
     @Override
     public String getProduction() {
         return typeProd;
+    }
+
+    public void changeProduction(String x){
+        typeProd = x;
     }
 
     @Override
