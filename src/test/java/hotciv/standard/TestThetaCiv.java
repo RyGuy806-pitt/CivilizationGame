@@ -60,4 +60,17 @@ public class TestThetaCiv {
         assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(UFO));
 
     }
+
+    @Test
+    public void UFOStatsAttackIsOneDefenseIsEight(){
+        game.endOfTurn();
+        game.changeProductionInCityAt(new Position(4,1), UFO);
+        game.endOfTurn();
+        for(int i = 0; i < 8*2; i++){
+            game.endOfTurn();
+        }
+        assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(UFO));
+        assertThat(game.getUnitAt(new Position(3, 1)).getAttackingStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(3, 1)).getDefensiveStrength(), is(8));
+    }
 }

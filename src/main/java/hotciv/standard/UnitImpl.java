@@ -3,6 +3,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 
+import static Strategies.ThetaUnitAction.UFO;
 import static hotciv.framework.GameConstants.*;
 
 public class UnitImpl implements Unit {
@@ -32,7 +33,12 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getMoveCount() {
-        return 1;
+        if(type != UFO) {
+            return 1;
+        }
+        else{
+            return 2;
+        }
     }
 
     @Override
@@ -44,6 +50,8 @@ public class UnitImpl implements Unit {
             defensiveStrength = 3;
         } else if (type == LEGION) {
             defensiveStrength = 2;
+        } else if (type == UFO) {
+            defensiveStrength = 8;
         } else {
             //do nothing
         }
@@ -58,6 +66,8 @@ public class UnitImpl implements Unit {
             offensiveStrength = 0;
         } else if (type == LEGION) {
             offensiveStrength = 4;
+        } else if (type== UFO) {
+            offensiveStrength = 1;
         } else {
             //do nothing
         }
