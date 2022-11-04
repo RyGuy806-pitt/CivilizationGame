@@ -73,4 +73,29 @@ public class TestThetaCiv {
         assertThat(game.getUnitAt(new Position(3, 1)).getAttackingStrength(), is(1));
         assertThat(game.getUnitAt(new Position(3, 1)).getDefensiveStrength(), is(8));
     }
+
+    @Test
+    public void MoveCountImplemented(){
+        game.endOfTurn();
+        game.endOfTurn();
+        assertThat(game.getUnitAt(new Position(3,1)).getMoveCount(), is(1));
+        game.changeProductionInCityAt(new Position(4,1), UFO);
+        for(int i=0; i<10*2; i++){
+            game.endOfTurn();
+        }
+        assertThat(game.getUnitAt(new Position(4, 2)).getTypeString(), is(UFO));
+        assertThat(game.getUnitAt(new Position(4, 2)).getMoveCount(), is(2));
+    }
+
+    @Test
+    public void SeeIfMoveCountIncrements(){
+        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
+        assertThat(game.getUnitAt(new Position(2, 1)).getTypeString(), is("nothing"));
+        assertThat(game.moveUnit(new Position(2,0), new Position(2,1)), is(true));
+        assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is("nothing"));
+        assertThat(game.getUnitAt(new Position(2, 1)).getTypeString(), is(ARCHER));
+        assertThat(game.getUnitAt(new Position(2, 1)).getMoveCount(), is(0));
+
+    }
+
 }

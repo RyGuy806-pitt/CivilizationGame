@@ -37,6 +37,7 @@ import static hotciv.framework.GameConstants.*;
 
 public class GameImpl implements Game {
   private int year = -4000;
+  int movesThisTurn = 0;
   private int redPlayerWinCounter = 0;
   private int bluePlayerWinCounter = 0;
   private HashMap<Position, TileImpl> tileMap = new HashMap();
@@ -108,7 +109,14 @@ public class GameImpl implements Game {
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
     //rewrite unit at map location
+    int mc = 0;
     UnitImpl unit = unitMap.get(from);
+    if(unit.getMoveCount()==0){
+      return false;
+    }
+
+    //unitMap.get(from).setMoveCount(unit.getMoveCount() - 1);
+
     String type = unit.getTypeString();
     Player own = unit.getOwner();
     int RedWins = getRedWins();
@@ -132,6 +140,7 @@ public class GameImpl implements Game {
           cityMap.put(to, new CityImpl(to, type, own));
         }
         unitMap.put(to, new UnitImpl(to, type, own));
+        unitMap.get(to).setMoveCount(unit.getMoveCount() - 1);
         return true;
       }
     }

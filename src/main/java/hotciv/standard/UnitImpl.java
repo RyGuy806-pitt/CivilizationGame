@@ -13,12 +13,17 @@ public class UnitImpl implements Unit {
     int ArcherStrength = 3;
     int defensiveStrength = 0;
     int offensiveStrength = 0;
+    private int moveCount;
+    int singleTurnCounter = 0;
+    boolean movement;
+    boolean movement2;
 
 
     public UnitImpl(Position p, String t, Player o){
         this.position = p;
         this.type = t;
         this.owner = o;
+        resetMoveCount();
     }
 
     @Override
@@ -33,11 +38,11 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getMoveCount() {
-        if(type != UFO) {
-            return 1;
+        if(checkFortified()) {
+            return 0;
         }
         else{
-            return 2;
+            return moveCount;
         }
     }
 
@@ -94,4 +99,18 @@ public class UnitImpl implements Unit {
             return false;
         }
     }
+
+    public void setMoveCount(int x){
+        moveCount = x;
+    }
+
+    public void resetMoveCount() {
+        if(type == UFO){
+            moveCount = 2;
+        }
+        else{
+            moveCount = 1;
+        }
+    }
+
 }

@@ -142,7 +142,7 @@ public class TestAlphaCiv {
     game.getPlayerInTurn();
     game.endOfTurn();
     game.getPlayerInTurn();
-    assertThat(game.getUnitAt(new Position(3, 1)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(3, 1)).getTypeString(), is(SETTLER));
   }
 
   @Test
@@ -158,7 +158,7 @@ public class TestAlphaCiv {
     game.endOfTurn();
     game.endOfTurn();
     game.endOfTurn();
-    assertThat(game.getUnitAt(new Position(4, 2)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(4, 2)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(10));
   }
 
@@ -170,7 +170,7 @@ public class TestAlphaCiv {
     game.endOfTurn();//treasury should be 18 - 4*2
     game.endOfTurn();
     game.endOfTurn();//treasury should be 24 - 4*3 = 12
-    assertThat(game.getUnitAt(new Position(5, 2)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(5, 2)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(12));
   }
 
@@ -184,7 +184,7 @@ public class TestAlphaCiv {
     game.endOfTurn();
     game.endOfTurn();
     game.endOfTurn();//treasury should be 30 - 4*4 = 14
-    assertThat(game.getUnitAt(new Position(5, 1)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(5, 1)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(14));
   }
   @Test
@@ -199,7 +199,7 @@ public class TestAlphaCiv {
     game.endOfTurn();//treasury should be 30 - 4*4 = 14
     game.endOfTurn();
     game.endOfTurn();//treasury should be 36 - 4*5 = 16
-    assertThat(game.getUnitAt(new Position(5, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(5, 0)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(16));
   }
 
@@ -217,7 +217,7 @@ public class TestAlphaCiv {
     game.endOfTurn();
     game.endOfTurn();
     game.endOfTurn();//treasury should be 42 - 4*6 = 18
-    assertThat(game.getUnitAt(new Position(4, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(4, 0)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(18));
   }
 
@@ -237,7 +237,7 @@ public class TestAlphaCiv {
     game.endOfTurn();
     game.endOfTurn();
     game.endOfTurn();//treasury should be 48 - 4*7 = 20
-    assertThat(game.getUnitAt(new Position(3, 0)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(3, 0)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(20));
   }
 
@@ -259,7 +259,7 @@ public class TestAlphaCiv {
     game.endOfTurn();
     game.endOfTurn();
     game.endOfTurn();//treasury should be 48 - 4*7 = 22
-    assertThat(game.getUnitAt(new Position(4, 1)).getTypeString(), is(ARCHER));
+    assertThat(game.getUnitAt(new Position(4, 1)).getTypeString(), is(SETTLER));
     assertThat(game.getCityAt(new Position(4, 1)).getTreasury(), is(22));
   }
 
