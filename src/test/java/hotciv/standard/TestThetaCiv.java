@@ -2,12 +2,15 @@ package hotciv.standard;
 
 import VersionControl.GammaVersion;
 import VersionControl.ThetaVersion;
+import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.stub.GameStub;
 import org.junit.Before;
 import org.junit.Test;
 
 import static hotciv.framework.GameConstants.*;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class TestThetaCiv {
@@ -133,5 +136,30 @@ public class TestThetaCiv {
         assertThat(game.moveUnit(new Position(5,2), new Position(4,2)), is(true));
     }
 
+    @Test
+    public void UFOUnitActionRemovesCityAt0Population(){
+        game.endOfTurn();
+        game.changeProductionInCityAt(new Position(4,1), UFO);
+        game.endOfTurn();
+        for(int i = 0; i < 8*2; i++){
+            game.endOfTurn();
+        }
+        assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(UFO));
+        game.moveUnit(new Position(3,1), new Position(2, 1));
+        game.moveUnit(new Position(2,1), new Position(1, 1));
+        assertThat(game.getCityAt(new Position(1,1)).getOwner(), is(Player.BLUE));
+        game.performUnitActionAt(new Position(1,1));
+        assertThat(game.getCityAt(new Position(1,1)), is(nullValue()));
 
+
+    }
+
+    @Test
+    public void UFOChangesForestToPlains(){
+        GameStub game = new GameStub(new ThetaVersion());
+        assertThat(game.getTileAt(new Position(12, 1)).getTypeString(), is(FOREST));
+        assertThat(game.getUnitAt(new Position(12, 1)).getTypeString(), is(UFO));
+        game.performUnitActionAt(new Position(12, 1));
+        assertThat(game.getTileAt(new Position(12, 1)).getTypeString(), is(PLAINS));
+    }
 }

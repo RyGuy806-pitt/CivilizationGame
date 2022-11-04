@@ -1,9 +1,6 @@
 package hotciv.stub;
 
-import Strategies.Aging;
-import Strategies.Attack;
-import Strategies.EpsilonAttack;
-import Strategies.Winner;
+import Strategies.*;
 import VersionControl.EpsilonVersion;
 import VersionControl.Version;
 import hotciv.framework.*;
@@ -14,6 +11,7 @@ import hotciv.standard.UnitImpl;
 import java.util.HashMap;
 
 import static hotciv.framework.GameConstants.*;
+import static hotciv.standard.TestThetaCiv.UFO;
 
 public class GameStub implements Game {
 
@@ -25,6 +23,7 @@ public class GameStub implements Game {
     private HashMap<Position, CityImpl> cityMap = new HashMap();
 
     private Attack AttackStrat;
+    private UnitAction ActionStrat;
     private Winner WinnerStrat;
     private Aging AgingStrat;
 
@@ -32,6 +31,7 @@ public class GameStub implements Game {
 
         this.AttackStrat = Var.createAttack();
         this.WinnerStrat = Var.createWinner();
+        this.ActionStrat = Var.createUnitAction();
 
         for(int i=0; i<WORLDSIZE; i++) {
             for(int j=0; j<WORLDSIZE; j++) {
@@ -41,7 +41,9 @@ public class GameStub implements Game {
                     unitMap.put(p, new UnitImpl(p, ARCHER, Player.RED));
                 } else if (i==4) {
                     unitMap.put(p, new UnitImpl(p, ARCHER, Player.RED));
-                } else{
+                } else if (i ==12) {
+                    unitMap.put(p, new UnitImpl(p, UFO, Player.BLUE));
+                } else {
                     unitMap.put(p, new UnitImpl(p, ARCHER, Player.BLUE));
                 }
             }
@@ -175,7 +177,57 @@ public class GameStub implements Game {
 
     @Override
     public void performUnitActionAt(Position p) {
+        Unit unit = unitMap.get(p);
+        String unitName = unit.getTypeString();
+        Player owner = unit.getOwner();
 
+        if(unitName == SETTLER)
+        {
+            // clear from unit map
+            unitMap.remove(p);
+            unitMap.put(p, new UnitImpl(p, "nothing", owner));
+
+            // add to city map with ARCHER as production
+            cityMap.put(p, new CityImpl(p, ARCHER, owner));
+        }
+        else if(unitName == ARCHER)
+        {
+//            if(UM.get(p).getDefensiveStrength() == 1) {
+//                UM.get(p).fortified();
+//            }
+//
+//            if(UM.get(p).getDefensiveStrength() == 2) {
+//                UM.get(p).notFortified();
+//            }
+//            if(unitMap.get(p).checkFortified() == false) {
+//                unitMap.get(p).fortified();
+//            }
+//            else{
+//                unitMap.get(p).notFortified();
+//            }
+        }
+        else if(unitName == LEGION)
+        {
+            // do nothing
+        }
+        else if(unitName == UFO){
+            int population = 0;
+            if(cityMap.get(p) != null){
+                population = cityMap.get(p).getSize();
+                cityMap.get(p).setSize(population-1);
+                if(cityMap.get(p).getSize() == 0){
+                    cityMap.remove(p);
+                }
+            }
+
+            if(tileMap.get(p).getTypeString() == FOREST){
+                tileMap.put(p, new TileImpl(p, PLAINS));
+            }
+        }
+        else
+        {
+            // do nothing
+        }
     }
 
     public void setRedWins(int x){ redPlayerWinCounter = x; }

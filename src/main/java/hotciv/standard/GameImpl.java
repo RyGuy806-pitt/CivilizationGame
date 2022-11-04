@@ -188,7 +188,7 @@ public class GameImpl implements Game {
     cityMap.get(p).setProductCost(unitType);
   }
   public void performUnitActionAt( Position p ) {
-    UnitActionStrat.setUnitAction(this, p, unitMap, cityMap);
+    UnitActionStrat.setUnitAction(this, p, unitMap, cityMap, tileMap);
   }
   public void produceTroopForCity(CityImpl c){
 

@@ -4,6 +4,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.CityImpl;
 import hotciv.standard.GameImpl;
+import hotciv.standard.TileImpl;
 import hotciv.standard.UnitImpl;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import static hotciv.framework.GameConstants.*;
 public class ThetaUnitAction implements UnitAction{
     public static final String UFO = "ufo";
     @Override
-    public void setUnitAction(GameImpl g, Position p, HashMap<Position, UnitImpl> UM, HashMap<Position, CityImpl> CM) {
+    public void setUnitAction(GameImpl g, Position p, HashMap<Position, UnitImpl> UM, HashMap<Position, CityImpl> CM, HashMap<Position, TileImpl> TM) {
         UnitImpl unit = UM.get(p);
         String unitName = unit.getTypeString();
         Player owner = unit.getOwner();
@@ -55,6 +56,10 @@ public class ThetaUnitAction implements UnitAction{
                 if(CM.get(p).getSize() == 0){
                     CM.remove(p);
                 }
+            }
+
+            if(TM.get(p).getTypeString() == FOREST){
+                TM.put(p, new TileImpl(p, PLAINS));
             }
         }
         else
