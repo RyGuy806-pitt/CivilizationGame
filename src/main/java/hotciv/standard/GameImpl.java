@@ -161,6 +161,14 @@ public class GameImpl implements Game {
     getWinner();
     if(turn_count%2 == 0){
       //this part needs to take a position input of the city in its own function
+      for(int i = 0; i<WORLDSIZE; i++){
+        for(int j = 0; j<WORLDSIZE; j++){
+          if(unitMap.get(new Position(i, j)).getTypeString() != "nothing"){
+            unitMap.get(new Position(i, j)).resetMoveCount();
+          }
+        }
+      }
+
       if(cityMap.get(new Position(4, 1)) != null) {
         produceTroopForCity(cityMap.get(new Position(4, 1)));
         produceTroopForCity(cityMap.get(new Position(1, 1)));
