@@ -46,7 +46,7 @@ public class GameDecorator implements Game {
     @Override
     public boolean moveUnit(Position from, Position to) {
         if(game.moveUnit(from, to)) {
-            System.out.println("Unit moved to " + to + " from " + from + ".");
+            System.out.println("Unit moved from " + from + " to " + to + ".");
         }
         else {
             System.out.println("Unit not able to move.");
