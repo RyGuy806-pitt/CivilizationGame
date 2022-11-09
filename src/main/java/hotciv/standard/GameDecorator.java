@@ -7,6 +7,7 @@ public class GameDecorator implements Game {
 
     public GameDecorator(GameImpl gameImpl) {
         this.game = gameImpl;
+        System.out.print("Game has begun.\n");
     }
     @Override
     public Tile getTileAt(Position p) {
@@ -39,7 +40,7 @@ public class GameDecorator implements Game {
 
     @Override
     public int getAge() {
-        System.out.println("World age is " + game.getAge());
+        System.out.println("World age is " + game.getAge() + ".");
         return game.getAge();
     }
 

@@ -26,48 +26,19 @@ public class TestDecorator {
 
 
     @Test
-    public void testPrintGetWinner() {
+    public void testGame1() {
         for(int i=0; i<100; i++) {
-            gameImpl.endOfTurn();
-        }
-        gameDec.getWinner();
-    }
-    @Test
-    public void testPrintGetPlayerInTurn() {
-        for(int i=0; i<100; i++) {
-            gameImpl.endOfTurn();
-        }
-        gameDec.getPlayerInTurn();
-    }
-    @Test
-    public void testPrintGetAge() {
-        for(int i=0; i<=72; i++) {
             gameImpl.endOfTurn();
         }
         gameDec.getAge();
-    }
-    @Test
-    public void testMoveUnitAble() {
+        gameDec.getPlayerInTurn();
         gameDec.moveUnit(new Position(3,2), new Position(4,3));
-    }
-//    @Test
-//    public void testMoveUnitUnable() {
-//        gameDec.moveUnit(new Position(3,2), new Position(3,2));
-//    }
-    @Test
-    public void testEndOfTurn() {
+        gameDec.performUnitActionAt(new Position(4,1));
+        gameDec.changeProductionInCityAt(new Position(4,1), LEGION);
+        gameDec.getWinner();
         gameDec.endOfTurn();
     }
-//    @Test
-//    public void testChangeWorkForceFocusInCityAt() {
-//        gameDec.changeWorkForceFocusInCityAt(new Position(3,2), );
-//    }
-    @Test
-    public void changeProductionInCityAt() {
-        gameDec.changeProductionInCityAt(new Position(4,1), LEGION);
-    }
-    @Test
-    public void performUnitActionAt() {
-        gameDec.performUnitActionAt(new Position(3,6));
-    }
+//      gameDec.moveUnit(new Position(3,2), new Position(3,2));
+//      gameDec.changeWorkForceFocusInCityAt(new Position(3,2), );
+
 }
