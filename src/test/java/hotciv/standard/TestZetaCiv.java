@@ -28,7 +28,10 @@ public class TestZetaCiv {
     public void RedShouldWin() {
         //assertThat(game, is(notNullValue()));
         //game.getCityAt(new Position(1, 1))
-        game.moveUnit(new Position(4, 3), new Position(4, 1));
+        game.moveUnit(new Position(4, 3), new Position(4, 2));
+        game.endOfTurn();
+        game.endOfTurn();
+        game.moveUnit(new Position(4, 2), new Position(4, 1));
         assertThat(game.getWinner(), is(Player.RED));
     }
 
@@ -44,10 +47,13 @@ public class TestZetaCiv {
         assertThat(g.getWinner(), is(Player.BLUE));
 
     }
-
+//worked correctly before moveUnit implemented, now jump is too large
     @Test
     public void PlayerRedStillWinsWhenBlueDoes3AttacksBefore20Turns(){
-        game.moveUnit(new Position(4, 3), new Position(4, 1));
+        game.moveUnit(new Position(4, 3), new Position(4, 2));
+        game.endOfTurn();
+        game.endOfTurn();
+        game.moveUnit(new Position(4, 2), new Position(4, 1));
         assertThat(game.getWinner(), is(Player.RED));
         game.setBlueWins(3);
         assertThat(game.getWinner(), is(Player.RED));

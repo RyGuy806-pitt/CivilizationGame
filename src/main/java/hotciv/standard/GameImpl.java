@@ -132,6 +132,10 @@ public class GameImpl implements Game {
       return false;
     }
 
+    if(getPlayerInTurn() != getUnitAt(from).getOwner()){
+      return false;
+    }
+
     //unitMap.get(from).setMoveCount(unit.getMoveCount() - 1);
 
     String type = unit.getTypeString();

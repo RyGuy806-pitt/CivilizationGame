@@ -73,9 +73,18 @@ public class TestMoveUnit {
 
     @Test
     public void CanOnlyMoveDistanceOne(){
+        game.endOfTurn();
         assertThat(game.moveUnit(new Position(2,0), new Position(2,2)), is(false));
         assertThat(game.moveUnit(new Position(2,0), new Position(0,0)), is(false));
         assertThat(game.moveUnit(new Position(2,0), new Position(0,2)), is(false));
         assertThat(game.moveUnit(new Position(2,0), new Position(1,1)), is(true));
+    }
+
+    @Test
+    public void CanOnlyMoveOnOwnTurn(){
+        assertThat(game.moveUnit(new Position(2,0), new Position(2,2)), is(false));
+        assertThat(game.moveUnit(new Position(2,0), new Position(0,0)), is(false));
+        assertThat(game.moveUnit(new Position(2,0), new Position(0,2)), is(false));
+        assertThat(game.moveUnit(new Position(2,0), new Position(1,1)), is(false));
     }
 }

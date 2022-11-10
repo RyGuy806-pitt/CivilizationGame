@@ -109,15 +109,16 @@ public class TestEpsilonCiv {
         assertThat(g.getUnitAt(new Position (3, 2)).getAttackingStrength(), is(4));
         assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(LEGION));
     }
-
-    @Test
-    public void MoveUnitWorking() {
-
-        GameImpl g = new GameImpl(new EpsilonVersion());
-        g.moveUnit(new Position(3, 2), new Position(4, 3));
-        assertThat(g.getUnitAt(new Position(4, 3)).getTypeString(), is(LEGION));
-
-    }
+//invalid after updated function
+//please see TestMoveUnit
+//    @Test
+//    public void MoveUnitWorking() {
+//
+//        GameImpl g = new GameImpl(new EpsilonVersion());
+//        g.moveUnit(new Position(3, 2), new Position(4, 3));
+//        assertThat(g.getUnitAt(new Position(4, 3)).getTypeString(), is(LEGION));
+//
+//    }
 
     @Test
     public void MoveUnitDenyMovementReturnLegionFromInitialTile() {
