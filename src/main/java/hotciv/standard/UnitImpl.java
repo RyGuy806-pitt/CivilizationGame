@@ -48,8 +48,7 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getDefensiveStrength()
-    {
-        if(type == ARCHER){
+    { if(type == ARCHER){
             defensiveStrength = ArcherStrength;
         } else if (type == SETTLER) {
             defensiveStrength = 3;
@@ -60,9 +59,7 @@ public class UnitImpl implements Unit {
         } else {
             //do nothing
         }
-        return defensiveStrength;
-    }
-
+        return defensiveStrength;}
     @Override
     public int getAttackingStrength() {
         if(type == ARCHER){
@@ -76,8 +73,7 @@ public class UnitImpl implements Unit {
         } else {
             //do nothing
         }
-        return offensiveStrength;
-    }
+        return offensiveStrength;}
 
     public void fortified(){
         if(type == ARCHER) {

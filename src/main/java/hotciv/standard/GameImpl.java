@@ -109,9 +109,26 @@ public class GameImpl implements Game {
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
     //rewrite unit at map location
-    int mc = 0;
+    int row, col = 0;
     UnitImpl unit = unitMap.get(from);
     if(unit.getMoveCount()==0){
+      return false;
+    }
+    if(tileMap.get(to).getTypeString()==OCEANS){
+      return false;
+    }
+    if(getUnitAt(from).getOwner()==getUnitAt(to).getOwner()){
+      return false;
+    }
+    row = from.getRow()- to.getRow();
+    col = from.getColumn() - to.getColumn();
+    if(-1 > row){
+      return false;
+    } else if(row > 1) {
+      return false;
+    } else if(-1 > col){
+      return false;
+    } else if(col > 1) {
       return false;
     }
 

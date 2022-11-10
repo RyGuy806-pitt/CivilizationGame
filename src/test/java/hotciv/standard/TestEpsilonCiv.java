@@ -153,7 +153,7 @@ public class TestEpsilonCiv {
         //making sure the UnitStubs are in the StubGame, they return the correct values
     }
 
-// These only work without the random number
+ //These only work without the random number
 //    @Test
 //    public void EpsilonAttackCalculatesTerrainAndAllyBonusesReturnsTenAndSix(){
 //        EpsilonAttack a = new EpsilonAttack();
