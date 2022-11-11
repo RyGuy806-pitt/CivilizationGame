@@ -4,9 +4,10 @@ import hotciv.framework.*;
 
 public class GameDecorator implements Game {
     private GameImpl game;
-
-    public GameDecorator(GameImpl gameImpl) {
+    private boolean toggle;
+    public GameDecorator(GameImpl gameImpl, boolean toggle) {
         this.game = gameImpl;
+        this.toggle = toggle;
         System.out.print("Game has begun.\n");
     }
     @Override
@@ -34,48 +35,67 @@ public class GameDecorator implements Game {
     @Override
     public Player getWinner() {
         Player winner = game.getWinner();
-        System.out.println("Winner is " + winner + ".");
+        if(toggle == true) {
+            System.out.println("Winner is " + winner + ".");
+        }
         return winner;
     }
 
     @Override
     public int getAge() {
-        System.out.println("World age is " + game.getAge() + ".");
+        if(toggle == true) {
+            System.out.println("World age is " + game.getAge() + ".");
+        }
         return game.getAge();
     }
 
     @Override
     public boolean moveUnit(Position from, Position to) {
-        if(game.moveUnit(from, to)) {
-            System.out.println("Unit moved from " + from + " to " + to + ".");
-        }
-        else {
-            System.out.println("Unit not able to move.");
+        if(toggle == true) {
+            if (game.moveUnit(from, to)) {
+                System.out.println("Unit moved from " + from + " to " + to + ".");
+            } else {
+                System.out.println("Unit not able to move.");
+            }
         }
         return game.moveUnit(from, to);
     }
 
     @Override
     public void endOfTurn() {
-        System.out.println("Turn ended.");
+        if(toggle == true) {
+            System.out.println("Turn ended.");
+        }
         game.endOfTurn();
     }
 
     @Override
     public void changeWorkForceFocusInCityAt(Position p, String balance) {
-        System.out.println("Work Force is" + balance + " in City at " + p + ".");
+        if(toggle == true) {
+            System.out.println("Work Force is" + balance + " in City at " + p + ".");
+        }
         game.changeWorkForceFocusInCityAt(p, balance);
     }
 
     @Override
     public void changeProductionInCityAt(Position p, String unitType) {
-        System.out.println("Production at City " + p + " is " + unitType + ".");
+        if(toggle == true) {
+            System.out.println("Production at City " + p + " is " + unitType + ".");
+        }
         game.changeProductionInCityAt(p, unitType);
     }
 
     @Override
     public void performUnitActionAt(Position p) {
-        System.out.println("Unit action performed at " + p + ".");
+        if(toggle == true) {
+            System.out.println("Unit action performed at " + p + ".");
+        }
         game.performUnitActionAt(p);
+    }
+    public void toggleTranscriptOn() {
+        toggle = true;
+    }
+    public void toggleTranscriptOff() {
+        toggle = false;
     }
 }
