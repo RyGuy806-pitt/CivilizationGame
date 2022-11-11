@@ -41,7 +41,7 @@ public class TestDecorator {
         gameDec.getWinner();
         gameDec.endOfTurn();
         gameDec.getWinner();
+        //gameDec.changeWorkForceFocusInCityAt(new Position(3,2), );
     }
-//      gameDec.changeWorkForceFocusInCityAt(new Position(3,2), );
 
 }
