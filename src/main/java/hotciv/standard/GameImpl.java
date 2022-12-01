@@ -211,6 +211,17 @@ public class GameImpl implements Game {
   public void performUnitActionAt( Position p ) {
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap, tileMap);
   }
+
+  @Override
+  public void addObserver(GameObserver observer) {
+
+  }
+
+  @Override
+  public void setTileFocus(Position position) {
+
+  }
+
   public void produceTroopForCity(CityImpl c){
 
     c.IncrementTreasury();//Increment each round

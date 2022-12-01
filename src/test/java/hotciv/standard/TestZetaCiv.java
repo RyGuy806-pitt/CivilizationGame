@@ -10,6 +10,8 @@ import hotciv.stub.GameStub;
 import org.junit.Before;
 import org.junit.Test;
 
+import static hotciv.framework.GameConstants.ARCHER;
+import static hotciv.framework.GameConstants.SETTLER;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -23,7 +25,7 @@ public class TestZetaCiv {
     public void setUp() {
         game = new GameImpl(new ZetaVersion());
     }
-
+//test works but glitches on gradle clean test run
     @Test
     public void RedShouldWin() {
         //assertThat(game, is(notNullValue()));
@@ -31,7 +33,11 @@ public class TestZetaCiv {
         game.moveUnit(new Position(4, 3), new Position(4, 2));
         game.endOfTurn();
         game.endOfTurn();
+        assertThat(game.getUnitAt(new Position(4,2)).getTypeString(), is(SETTLER));
         game.moveUnit(new Position(4, 2), new Position(4, 1));
+        assertThat(game.getUnitAt(new Position(4,1)).getTypeString(), is(SETTLER));
+        assertThat(game.getCityAt(new Position(4,1)).getOwner(), is(Player.RED));
+        assertThat(game.getCityAt(new Position(1,1)).getOwner(), is(Player.RED));
         assertThat(game.getWinner(), is(Player.RED));
     }
 
@@ -47,7 +53,7 @@ public class TestZetaCiv {
         assertThat(g.getWinner(), is(Player.BLUE));
 
     }
-//worked correctly before moveUnit implemented, now jump is too large
+
     @Test
     public void PlayerRedStillWinsWhenBlueDoes3AttacksBefore20Turns(){
         game.moveUnit(new Position(4, 3), new Position(4, 2));

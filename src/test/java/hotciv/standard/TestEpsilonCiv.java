@@ -76,10 +76,12 @@ public class TestEpsilonCiv {
         assertThat(g.performAttack(new Position(2, 1), new Position(1,1)), is(true));
     }
 
-    @Test
+    @Test//not liked
     public void AlphaAttackTrueAndMoveUnit() {
 
         GameImpl g = new GameImpl(new AlphaVersion());
+        g.endOfTurn();
+        g.endOfTurn();
         assertThat(g.getUnitAt(new Position (4, 3)).getTypeString(), is(SETTLER));
         g.moveUnit(new Position(4,3), new Position(3,2));
         assertThat(g.getUnitAt(new Position (3, 2)).getTypeString(), is(SETTLER));
@@ -129,14 +131,6 @@ public class TestEpsilonCiv {
 
     }
 
-    @Test
-    public void MoveUnitRemoveTroopReturnNothingAtInitialTile() {
-
-        GameImpl g = new GameImpl(new EpsilonVersion());
-        g.moveUnit(new Position(4, 3), new Position(3, 2));
-        assertThat(g.getUnitAt(new Position(4, 3)).getTypeString(), is("nothing"));
-
-    }
 
     @Test
     public void TestStubMap(){

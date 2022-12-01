@@ -230,6 +230,16 @@ public class GameStub implements Game {
         }
     }
 
+    @Override
+    public void addObserver(GameObserver observer) {
+
+    }
+
+    @Override
+    public void setTileFocus(Position position) {
+
+    }
+
     public void setRedWins(int x){ redPlayerWinCounter = x; }
 
     public int getRedWins(){

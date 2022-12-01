@@ -17,7 +17,6 @@ public class TestIntegration {
     @Test   //AlphaCiv
     public void shouldBeRedAsStartingPlayer() {
         game = new GameImpl(new AlphaVersion());
-        assertThat(game, is(notNullValue()));
         assertThat(game.getPlayerInTurn(), is(Player.RED));
     }
     @Test   //BetaCiv
@@ -34,7 +33,10 @@ public class TestIntegration {
         //assertThat(game, is(notNullValue()));
         //game.getCityAt(new Position(1, 1))
         game = new GameImpl(new BetaVersion());
-        game.moveUnit(new Position(4,3), new Position(4,1));
+        game.moveUnit(new Position(4,3), new Position(4,2));
+        game.endOfTurn();
+        game.endOfTurn();
+        game.moveUnit(new Position(4,2), new Position(4,1));
         assertThat(game.getWinner(), is(Player.RED));
     }
     @Test   //DeltaCiv
@@ -47,8 +49,8 @@ public class TestIntegration {
         game = new GameImpl(new GammaVersion());
         //game.performUnitActionAt(new Position(2, 0));
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(1));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
-        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(2));
+        assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(6));
     }
 }

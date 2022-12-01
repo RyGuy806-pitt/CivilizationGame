@@ -133,5 +133,22 @@ public interface Game {
    * @param p the position of a unit that must perform its action.
    * Nothing happens in case the unit has no associated action.
    */
-  public void performUnitActionAt( Position p );  
+  public void performUnitActionAt( Position p );
+
+  /** add an observer on this game instance. The game
+   * instance acts as 'subject' in the pattern.
+   * @param observer the observer to notify in case of
+   * state changes.
+   */
+  public void addObserver(GameObserver observer);
+
+  /** set the focus on a specific tile. This will
+   * result in an event being broadcast to all
+   * observers that focus has been changed to
+   * this tile. Precondition: the position
+   * is within the limits of the game world.
+   * @param position the position of the tile that
+   * has focus.
+   */
+  public void setTileFocus(Position position);
 }
