@@ -135,6 +135,7 @@ public class CivDrawing
   }
 
   protected ImageFigure turnShieldIcon;
+  protected TextFigure ageText;
   protected void defineIcons() {
     // TODO: Further development to include rest of figures needed
     turnShieldIcon = 
@@ -143,11 +144,22 @@ public class CivDrawing
                                   GfxConstants.TURN_SHIELD_Y ) ); 
     // insert in delegate figure list to ensure graphical
     // rendering.
+    ageText =
+            new TextFigure("4000 BC",
+                    new Point( GfxConstants.AGE_TEXT_X,
+                            GfxConstants.AGE_TEXT_Y));
+    updateAgeText(game.getAge());
+
     delegate.add(turnShieldIcon);
+    delegate.add(ageText);
   }
  
   // === Observer Methods ===
 
+  public void updateAgeText(int age){
+    String suffix = (Math.signum(age) == -1) ? "BC" : "AC";
+    ageText.setText(Math.abs(age) + " " + suffix);
+  }
   public void worldChangedAt(Position pos) {
     // TODO: Remove system.out debugging output
     System.out.println( "CivDrawing: world changes at "+pos);
@@ -167,6 +179,7 @@ public class CivDrawing
                         new Point( GfxConstants.TURN_SHIELD_X,
                                    GfxConstants.TURN_SHIELD_Y ) );
     // TODO: Age output pending
+    updateAgeText(age);
   }
 
   public void tileFocusChangedAt(Position position) {
@@ -184,6 +197,8 @@ public class CivDrawing
     // TODO: Cities pending
   }
 
+
+  //*** COMPLETED FUNCTIONS ***//
   @Override
   public void addToSelection(Figure arg0) {
     delegate.addToSelection(arg0);
