@@ -24,20 +24,19 @@ public class TestMoveUnit {
         game = new GameImpl(new ThetaVersion());
     }
 //test works but glitches on gradle clean test run
-//    @Test
-//    public void MoveUFOTwice(){
-//        game.changeProductionInCityAt(new Position(4,1), UFO);
-//        game.endOfTurn();
-//        for(int i = 0; i < 9*2; i++){
-//            game.endOfTurn();
-//        }
-//        assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(UFO));
-//        game.moveUnit(new Position(3,1), new Position(4, 2));
-//        assertThat(game.getUnitAt(new Position(4, 2)).getMoveCount(), is(1));
-//        game.moveUnit(new Position(4,2), new Position(5, 2));
-//        assertThat(game.getUnitAt(new Position(5, 2)).getMoveCount(), is(0));
-//        assertThat(game.moveUnit(new Position(5,2), new Position(4,2)), is(false));
-//    }
+    @Test
+    public void MoveUFOTwice(){
+        game.changeProductionInCityAt(new Position(4,1), UFO);
+        for(int i = 0; i < 9*2; i++){
+            game.endOfTurn();
+        }
+        assertThat(game.getUnitAt(new Position(3,1)).getTypeString(), is(UFO));
+        assertThat(game.moveUnit(new Position(3,1), new Position(3, 0)), is(true));
+        assertThat(game.getUnitAt(new Position(3, 0)).getMoveCount(), is(1));
+        assertThat(game.moveUnit(new Position(3,0), new Position(4, 0)), is(true));
+        assertThat(game.getUnitAt(new Position(4, 0)).getMoveCount(), is(0));
+        assertThat(game.moveUnit(new Position(4,0), new Position(4,1)), is(false));
+    }
 
     @Test
     public void ArcherCanMoveOnce(){

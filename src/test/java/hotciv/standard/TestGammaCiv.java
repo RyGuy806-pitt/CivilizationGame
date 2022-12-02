@@ -23,6 +23,7 @@ public class TestGammaCiv {
     }
     @Test
     public void SettlerShouldBecomeNothingForUnitMap() {
+        assertThat(game.getUnitAt(new Position(4, 3)).getTypeString(), is(SETTLER));
         game.performUnitActionAt(new Position(4, 3));
         assertThat(game.getUnitAt(new Position(4, 3)).getTypeString(), is("nothing"));
     }
@@ -69,12 +70,17 @@ public class TestGammaCiv {
     }
     @Test
     public void ArcherCanMoveTwoOne(){
+        game.endOfTurn();
+        game.endOfTurn();
         assertThat(game.getUnitAt(new Position(2, 0)).getTypeString(), is(ARCHER));
         assertThat(game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
         game.performUnitActionAt(new Position(2, 0));
+        game.endOfTurn();
+        game.endOfTurn();
         game.performUnitActionAt(new Position(2, 0));
-        game.moveUnit(new Position(2, 0), new Position(2,1));
-        assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is("nothing"));
+        assertThat(game.getUnitAt(new Position(2, 1)).getTypeString(), is("nothing"));
+        assertThat(game.moveUnit(new Position(2, 0), new Position(2,1)), is(true));
+        //assertThat(game.getUnitAt(new Position(2,0)).getTypeString(), is("nothing"));
         assertThat(game.getUnitAt(new Position(2,1)).getTypeString(), is(ARCHER));
 
     }

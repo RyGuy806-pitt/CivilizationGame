@@ -3,8 +3,11 @@ package hotciv.standard;
 import Strategies.*;
 import VersionControl.Version;
 import hotciv.framework.*;
+import hotciv.spy.GameObserverSpy;
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import static hotciv.framework.GameConstants.*;
 
@@ -49,6 +52,7 @@ public class GameImpl implements Game {
   private WorldMap WorldMapStrat;
   private Aging AgingStrat;
   private Attack AttackStrat;
+  private List<GameObserver> Obs = new ArrayList<>();
 
   public GameImpl(Version Var) {
     this.WinnerStrat = Var.createWinner();
@@ -135,7 +139,7 @@ public class GameImpl implements Game {
     if(getPlayerInTurn() != getUnitAt(from).getOwner()){
       return false;
     }
-
+    WorldChangeUpdateSpy(from);
     //unitMap.get(from).setMoveCount(unit.getMoveCount() - 1);
 
     String type = unit.getTypeString();
@@ -162,6 +166,8 @@ public class GameImpl implements Game {
         }
         unitMap.put(to, new UnitImpl(to, type, own));
         unitMap.get(to).setMoveCount(unit.getMoveCount() - 1);
+        WorldChangeUpdateSpy(to);
+        TileFocusUpdateSpy(to);
         return true;
       }
     }
@@ -202,11 +208,15 @@ public class GameImpl implements Game {
     }
     //year = year + 100;
     calculateAge();
+    EndOfTurnUpdateSpy();
   }
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+  public void changeWorkForceFocusInCityAt( Position p, String balance ) {
+    TileFocusUpdateSpy(p);
+  }
   public void changeProductionInCityAt( Position p, String unitType ) {
     cityMap.get(p).changeProduction(unitType);
     cityMap.get(p).setProductCost(unitType);
+    TileFocusUpdateSpy(p);
   }
   public void performUnitActionAt( Position p ) {
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap, tileMap);
@@ -214,12 +224,36 @@ public class GameImpl implements Game {
 
   @Override
   public void addObserver(GameObserver observer) {
-
+    Obs.add(observer);
   }
+
+
+  private void EndOfTurnUpdateSpy(){
+    for(GameObserver observer: Obs){
+      observer.turnEnds(getPlayerInTurn(), getAge());
+    }
+  }
+
+  private void WorldChangeUpdateSpy(Position position) {
+    for (GameObserver observer : Obs) {
+      observer.worldChangedAt(position);
+    }
+  }
+
+  private void TileFocusUpdateSpy(Position position){
+    for (GameObserver observer : Obs) {
+      observer.tileFocusChangedAt(position);
+    }
+  }
+
+
+//  public List<GameObserverSpy> ObserverLogs(){
+//    return Obs[1];
+//  }
 
   @Override
   public void setTileFocus(Position position) {
-
+    TileFocusUpdateSpy(position);
   }
 
   public void produceTroopForCity(CityImpl c){
@@ -236,37 +270,46 @@ public class GameImpl implements Game {
       if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position(row - 1, column));
       }
       else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position(row - 1, column+1));
       }
       else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row, column+1));
       }
       else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row+1, column+1));
       }
       else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row+1, column));
       }else if((unitMap.get(new Position( row+1, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row+1, column-1));
       }
       else if((unitMap.get(new Position( row, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row, column-1));
       }
       else if((unitMap.get(new Position( row-1, column-1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row-1, column-1));
       }
       else {
         c.DecrementTreasury();
         unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), Product, Player.BLUE));
+        WorldChangeUpdateSpy(new Position( row, column));
       }
 
     }
