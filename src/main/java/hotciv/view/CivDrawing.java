@@ -135,7 +135,13 @@ public class CivDrawing
   }
 
   protected ImageFigure turnShieldIcon;
+  protected ImageFigure refreshIcon;
+  protected ImageFigure unitShieldIcon;
+  protected ImageFigure cityShieldIcon;
+  protected ImageFigure productionIcon;
+  protected ImageFigure workForceIcon;
   protected TextFigure ageText;
+  protected TextFigure moveCountText;
   protected void defineIcons() {
     // TODO: Further development to include rest of figures needed
     turnShieldIcon = 
@@ -150,8 +156,23 @@ public class CivDrawing
                             GfxConstants.AGE_TEXT_Y));
     updateAgeText(game.getAge());
 
+    refreshIcon = new ImageFigure("refresh",
+                      new Point(GfxConstants.REFRESH_BUTTON_X,
+                                GfxConstants.REFRESH_BUTTON_Y) );
+
+//    unitShieldIcon = new ImageFigure(,
+//                      new Point(GfxConstants.UNIT_SHIELD_X,
+//                                GfxConstants.UNIT_SHIELD_Y));
+
+    moveCountText = new TextFigure("MC",
+                      new Point(GfxConstants.UNIT_COUNT_X,
+                                GfxConstants.UNIT_COUNT_Y));
+
+   // delegate.add(unitShieldIcon);
+    delegate.add(moveCountText);
     delegate.add(turnShieldIcon);
     delegate.add(ageText);
+    delegate.add(refreshIcon);
   }
  
   // === Observer Methods ===
@@ -159,6 +180,10 @@ public class CivDrawing
   public void updateAgeText(int age){
     String suffix = (Math.signum(age) == -1) ? "BC" : "AC";
     ageText.setText(Math.abs(age) + " " + suffix);
+  }
+
+  public void updateMoveCountText(int MC){
+    moveCountText.setText("" + MC);
   }
   public void worldChangedAt(Position pos) {
     // TODO: Remove system.out debugging output
@@ -185,6 +210,76 @@ public class CivDrawing
   public void tileFocusChangedAt(Position position) {
     // TODO: Implementation pending
     System.out.println( "Fake it: tileFocusChangedAt "+position );
+    removeUnitInformation();
+    showUnitInformation(position);
+
+    removeCityInformation();
+    showCityInformation(position);
+  }
+
+  public void showUnitInformation(Position position){
+    Unit u = game.getUnitAt(position);
+    if(u == null){
+      return;
+    }
+    Player owner = Player.RED;
+    String str_O = "red";
+    if(u.getOwner() != owner){
+      owner = Player.BLUE;
+      str_O = "blue";
+    }
+    unitShieldIcon = new ImageFigure(str_O+"shield",
+            new Point( GfxConstants.UNIT_SHIELD_X,
+                        GfxConstants.UNIT_SHIELD_Y));
+    delegate.add(unitShieldIcon);
+
+    moveCountText.setText("" + u.getMoveCount());
+  }
+
+  private void removeUnitInformation() {
+    remove(unitShieldIcon);
+    moveCountText.setText("");
+  }
+
+  public void showCityInformation(Position position){
+    City c = game.getCityAt(position);
+    if(c == null){
+      return;
+    }
+    String unitProd = c.getWorkforceFocus();
+    Player owner = Player.RED;
+    String str_O = "red";
+    if(c.getOwner() != owner){
+      owner = Player.BLUE;
+      str_O = "blue";
+    }
+    cityShieldIcon = new ImageFigure(str_O+"shield",
+            new Point( GfxConstants.CITY_SHIELD_X,
+                    GfxConstants.CITY_SHIELD_Y));
+    delegate.add(cityShieldIcon);
+
+    productionIcon = new ImageFigure("apple",
+            new Point(GfxConstants.CITY_PRODUCTION_X,
+                      GfxConstants.CITY_PRODUCTION_Y));
+    delegate.add(productionIcon);
+
+    workForceIcon = new ImageFigure(unitProd,
+            new Point(GfxConstants.WORKFORCEFOCUS_X,
+                    GfxConstants.WORKFORCEFOCUS_Y));
+    delegate.add(workForceIcon);
+
+
+  }
+
+  private void removeCityInformation() {
+    remove(cityShieldIcon);
+    remove(productionIcon);
+    remove(workForceIcon);
+  }
+
+
+  public String getUnitType(Position position) {
+    return game.getUnitAt(position).getTypeString();
   }
 
   @Override
