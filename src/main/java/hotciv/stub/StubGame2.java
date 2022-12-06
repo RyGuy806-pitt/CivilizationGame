@@ -4,6 +4,8 @@ import hotciv.framework.*;
 
 import java.util.*;
 
+import static hotciv.framework.GameConstants.ARCHER;
+
 /** Test stub for game for visual testing of
  * minidraw based graphics.
  *
@@ -42,6 +44,9 @@ public class StubGame2 implements Game {
   private Position pos_ufo_red;
 
   private Unit red_archer;
+  private Position pos_city_red;
+  private Position pos_city_blue;
+  int age = -4000;
 
   public Unit getUnitAt(Position p) {
     if ( p.equals(pos_archer_red) ) {
@@ -58,6 +63,17 @@ public class StubGame2 implements Game {
     }
     return null;
   }
+
+  public City getCityAt(Position p) {
+    if( p.equals(pos_city_red) ) {
+      return new StubCity(pos_city_red, ARCHER, Player.RED);
+    }
+    if( p.equals(pos_city_blue) ) {
+      return new StubCity(pos_city_blue, ARCHER, Player.BLUE);
+    }
+    return null;
+  }
+
 
   // Stub only allows moving red archer
   public boolean moveUnit( Position from, Position to ) { 
@@ -78,8 +94,12 @@ public class StubGame2 implements Game {
     inTurn = (getPlayerInTurn() == Player.RED ?
               Player.BLUE : 
               Player.RED );
+    age += (getPlayerInTurn() == Player.RED) ? 100 : 0;
+
+    if(inTurn == Player.RED) ((StubUnit)red_archer).endTurn();
+    gameObserver.turnEnds(inTurn, age);
+
     // no age increments
-    gameObserver.turnEnds(inTurn, -4000);
   }
   public Player getPlayerInTurn() { return inTurn; }
   
@@ -98,9 +118,11 @@ public class StubGame2 implements Game {
     pos_legion_blue = new Position( 3, 2);
     pos_settler_red = new Position( 4, 3);
     pos_ufo_red = new Position( 6, 4);
+    pos_city_red = new Position(5,5);
+    pos_city_blue = new Position(5,0);
 
     // the only one I need to store for this stub
-    red_archer = new StubUnit( GameConstants.ARCHER, Player.RED );   
+    red_archer = new StubUnit( ARCHER, Player.RED );
 
     inTurn = Player.RED;
   }
@@ -125,7 +147,7 @@ public class StubGame2 implements Game {
   }
 
   // TODO: Add more stub behaviour to test MiniDraw updating
-  public City getCityAt( Position p ) { return null; }
+  //public City getCityAt( Position p ) { return null; }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
@@ -144,13 +166,53 @@ public class StubGame2 implements Game {
 class StubUnit implements  Unit {
   private String type;
   private Player owner;
+  int moveCount;
   public StubUnit(String type, Player owner) {
     this.type = type;
     this.owner = owner;
+    moveCount = 1;
+  }
+  public void endTurn(){
+    moveCount = 1;
   }
   public String getTypeString() { return type; }
   public Player getOwner() { return owner; }
   public int getMoveCount() { return 1; }
   public int getDefensiveStrength() { return 0; }
   public int getAttackingStrength() { return 0; }
+}
+
+class StubCity implements City{
+  private String t;
+  private Position p;
+  private Player o;
+  public StubCity(Position p, String t, Player o) {
+    this.t = t;
+    this.o = o;
+    this.p = p;
+  }
+  @Override
+  public Player getOwner() {
+    return o;
+  }
+
+  @Override
+  public int getSize() {
+    return 1;
+  }
+
+  @Override
+  public int getTreasury() {
+    return 0;
+  }
+
+  @Override
+  public String getProduction() {
+    return t;
+  }
+
+  @Override
+  public String getWorkforceFocus() {
+    return "apple";
+  }
 }

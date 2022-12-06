@@ -48,6 +48,7 @@ public class CivDrawing
   protected Drawing delegate;
   /** store all moveable figures visible in this drawing = units */
   protected Map<Unit,UnitFigure> unitFigureMap;
+  protected Map<City, CityFigure> cityFigureMap;
 
   /** the Game instance that this CivDrawing is going to render units
    * from */
@@ -58,6 +59,7 @@ public class CivDrawing
     this.delegate = new StandardDrawing();
     this.game = game;
     this.unitFigureMap = new HashMap<>();
+    this.cityFigureMap = new HashMap<>();
 
     // register this unit drawing as listener to any game state
     // changes...
@@ -65,6 +67,7 @@ public class CivDrawing
     // ... and build up the set of figures associated with
     // units in the game.
     defineUnitMap();
+    defineCityMap();
     // and the set of 'icons' in the status panel
     defineIcons();
   }
@@ -120,6 +123,32 @@ public class CivDrawing
     }
   }
 
+  protected void defineCityMap() {
+    clearSelection();
+    removeAllCityFigures();
+    Position p;
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+      for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+        p = new Position(r, c);
+        City city = game.getCityAt(p);
+        if ( city != null ) {
+          Point point = new Point(GfxConstants.getXFromColumn(p.getColumn()),
+                  GfxConstants.getYFromRow(p.getRow()));
+
+          CityFigure cityFigure =
+                  new CityFigure(city, point);
+          cityFigure.addFigureChangeListener(this);
+          cityFigureMap.put(city, cityFigure);
+
+          delegate.add(cityFigure);
+        }
+      }
+    }
+    for (City city : cityFigureMap.keySet()) {
+      System.out.println("City: " + city.getOwner());
+    }
+  }
+
   /** remove all unit figures in this
    * drawing, and reset the map (unit->unitfigure).
    * It is important to actually remove the figures
@@ -133,6 +162,15 @@ public class CivDrawing
     }
     unitFigureMap.clear();
   }
+
+  private void removeAllCityFigures() {
+    for(City c : cityFigureMap.keySet()) {
+      CityFigure cf = cityFigureMap.get(c);
+      delegate.remove(cf);
+    }
+    cityFigureMap.clear();
+  }
+
 
   protected ImageFigure turnShieldIcon;
   protected ImageFigure refreshIcon;
@@ -191,6 +229,7 @@ public class CivDrawing
     // this is a really brute-force algorithm: destroy
     // all known units and build up the entire set again
     defineUnitMap();
+    defineCityMap();;
 
     // TODO: Cities may change on position as well
   }
@@ -289,6 +328,7 @@ public class CivDrawing
     // entire Drawing.
     defineUnitMap();
     defineIcons();
+    defineCityMap();;
     // TODO: Cities pending
   }
 
