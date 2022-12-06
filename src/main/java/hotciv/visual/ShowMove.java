@@ -10,6 +10,7 @@ import javax.swing.*;
 import hotciv.framework.*;
 import hotciv.view.*;
 import hotciv.stub.*;
+import tools.UnitMoveTool;
 
 /** Template code for exercise FRS 36.39.
 
@@ -33,12 +34,12 @@ public class ShowMove {
     Game game = new StubGame2();
 
     DrawingEditor editor = 
-      new MiniDrawApplication( "Move any unit using the mouse",  
-                               new HotCivFactory4(game) );
+      new MiniDrawApplication( "Move any unit using the mouse", new HotCivFactory4(game) );
     editor.open();
     editor.showStatus("Move units to see Game's moveUnit method being called.");
 
     // TODO: Replace the setting of the tool with your UnitMoveTool implementation.
-    editor.setTool( new SelectionTool(editor) );
+    editor.setTool( new UnitMoveTool(game, editor) );
+    System.out.println("UnitMoveTool: valid unit selected");
   }
 }

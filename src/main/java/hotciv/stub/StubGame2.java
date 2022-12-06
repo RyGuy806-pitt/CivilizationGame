@@ -84,13 +84,26 @@ public class StubGame2 implements Game {
   // Stub only allows moving red archer
   public boolean moveUnit( Position from, Position to ) { 
     System.out.println( "-- StubGame2 / moveUnit called: "+from+"->"+to );
+    int r1, r2, c1, c2;
+    boolean ret = false;
     if ( from.equals(pos_archer_red) ) {
-      pos_archer_red = to;
+      r1 = to.getRow();
+      r2 = from.getRow();
+      c1 = to.getColumn();
+      c2 = from.getColumn();
+      if((r1 - r2 >= -1) && (r1 - r2 <= 1)) {
+        pos_archer_red = to;
+        ret = true;
+      }
+      else {
+        pos_archer_red = from;
+        ret = false;
+      }
     }
     // notify our observer(s) about the changes on the tiles
     gameObserver.worldChangedAt(from);
     gameObserver.worldChangedAt(to);
-    return true; 
+    return ret;
   }
 
   // === Turn handling ===
