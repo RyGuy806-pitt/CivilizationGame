@@ -96,7 +96,6 @@ public class StubGame2 implements Game {
         ret = true;
       }
       else {
-        pos_archer_red = from;
         ret = false;
       }
     }
