@@ -83,21 +83,43 @@ class UpdateTool extends NullTool {
       game.setTileFocus(new Position(4,3));
       break;
     }
-      case 5: {
+    case 5: {
         editor.showStatus( "State change: Inspect city at (5,5)" );
         game.setTileFocus(new Position(5,5));
         break;
-      }
-      case 6: {
+    }
+    case 6: {
         editor.showStatus( "State change: Inspect Unit at (3,2)" );
         game.setTileFocus(new Position(3,2));
         break;
-      }
-      case 7: {
+    }
+    case 7: {
         editor.showStatus( "State change: Inspect nothing at (7,5)" );
         game.setTileFocus(new Position(7,5));
         break;
-      }
+    }
+    case 8: {
+        editor.showStatus( "State change: Spawn Archer at (8,2)");
+        ((StubGame2)game).spawnUnitAt(new Position(8, 2));
+        break;
+
+    }
+    case 9: {
+        editor.showStatus( "State change: Swap city owner at (5,0)");
+        ((StubGame2)game).switchCityOwner( new Position(5,0), Player.RED);
+        game.setTileFocus(new Position(5,0));
+
+    }
+    case 10: {
+        editor.showStatus( "State change: end of turn") ;
+        game.endOfTurn();
+
+    }
+    case 11: {
+        editor.showStatus( "State change: end of turn") ;
+        game.endOfTurn();
+
+    }
 
       // TODO: Add more state changes for other things to test
     default: {

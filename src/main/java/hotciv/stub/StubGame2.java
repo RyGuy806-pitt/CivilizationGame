@@ -44,8 +44,10 @@ public class StubGame2 implements Game {
   private Position pos_ufo_red;
 
   private Unit red_archer;
+  private Unit spawn_archer_red;
   private Position pos_city_red;
   private Position pos_city_blue;
+  private Position pos_spawn_red_archer = null;
   int age = -4000;
 
   public Unit getUnitAt(Position p) {
@@ -61,6 +63,10 @@ public class StubGame2 implements Game {
     if ( p.equals(pos_ufo_red) ) {
       return new StubUnit( ThetaConstants.UFO, Player.RED );
     }
+    if ( p.equals(pos_spawn_red_archer) ) {
+      return spawn_archer_red;
+    }
+
     return null;
   }
 
@@ -120,6 +126,7 @@ public class StubGame2 implements Game {
     pos_ufo_red = new Position( 6, 4);
     pos_city_red = new Position(5,5);
     pos_city_blue = new Position(5,0);
+    pos_spawn_red_archer = new Position(8, 2);
 
     // the only one I need to store for this stub
     red_archer = new StubUnit( ARCHER, Player.RED );
@@ -150,8 +157,8 @@ public class StubGame2 implements Game {
   //public City getCityAt( Position p ) { return null; }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }  
-  public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-  public void changeProductionInCityAt( Position p, String unitType ) {}
+  public void changeWorkForceFocusInCityAt( Position p, String balance ) {gameObserver.tileFocusChangedAt(p);}
+  public void changeProductionInCityAt( Position p, String unitType ) {gameObserver.tileFocusChangedAt(p);}
   public void performUnitActionAt( Position p ) {}
 
   public void setTileFocus(Position position) {
@@ -160,6 +167,23 @@ public class StubGame2 implements Game {
     gameObserver.tileFocusChangedAt(position);
     //System.out.println(" *** IMPLEMENTATION PENDING ***");
   }
+
+
+  public void spawnUnitAt(Position position) {
+    spawn_archer_red = new StubUnit(GameConstants.ARCHER, Player.RED);
+    gameObserver.worldChangedAt(position);
+  }
+
+  public void increasePopulationSize(Position position) {
+    ((StubCity)getCityAt(position)).increaseSize(1);
+    gameObserver.worldChangedAt(position);
+  }
+
+  public void switchCityOwner(Position position, Player player) {
+    ((StubCity)getCityAt(position)).setOwner(player);
+    gameObserver.worldChangedAt(position);
+  }
+
 
 }
 
@@ -186,6 +210,7 @@ class StubCity implements City{
   private String t;
   private Position p;
   private Player o;
+  int population = 6;
   public StubCity(Position p, String t, Player o) {
     this.t = t;
     this.o = o;
@@ -195,10 +220,16 @@ class StubCity implements City{
   public Player getOwner() {
     return o;
   }
+  public void setOwner(Player p){
+    o = p;
+  }
 
   @Override
   public int getSize() {
-    return 1;
+    return population;
+  }
+  public void increaseSize(int x){
+    population += x;
   }
 
   @Override

@@ -285,7 +285,7 @@ public class CivDrawing
     if(c == null){
       return;
     }
-    String unitProd = c.getWorkforceFocus();
+    String unitProd = c.getProduction();
     Player owner = Player.RED;
     String str_O = "red";
     if(c.getOwner() != owner){
@@ -297,12 +297,12 @@ public class CivDrawing
                     GfxConstants.CITY_SHIELD_Y));
     delegate.add(cityShieldIcon);
 
-    productionIcon = new ImageFigure("apple",
+    productionIcon = new ImageFigure(unitProd,
             new Point(GfxConstants.CITY_PRODUCTION_X,
                       GfxConstants.CITY_PRODUCTION_Y));
     delegate.add(productionIcon);
 
-    workForceIcon = new ImageFigure(unitProd,
+    workForceIcon = new ImageFigure("hammer",
             new Point(GfxConstants.WORKFORCEFOCUS_X,
                     GfxConstants.WORKFORCEFOCUS_Y));
     delegate.add(workForceIcon);
