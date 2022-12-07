@@ -10,6 +10,7 @@ import javax.swing.*;
 import hotciv.framework.*;
 import hotciv.view.*;
 import hotciv.stub.*;
+import tools.ActionTool;
 
 /** Template code for exercise FRS 36.43.
 
@@ -39,6 +40,7 @@ public class ShowAction {
     editor.showStatus("Shift-Click on unit to see Game's performAction method being called.");
 
     // TODO: Replace the setting of the tool with your ActionTool implementation.
-    editor.setTool( new NullTool() );
+    editor.setTool( new ActionTool(game, editor));
+    System.out.println("ActionTool: valid unit selected");
   }
 }

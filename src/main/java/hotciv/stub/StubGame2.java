@@ -1,10 +1,12 @@
 package hotciv.stub;
 
 import hotciv.framework.*;
+import hotciv.standard.CityImpl;
+import hotciv.standard.UnitImpl;
 
 import java.util.*;
 
-import static hotciv.framework.GameConstants.ARCHER;
+import static hotciv.framework.GameConstants.*;
 
 /** Test stub for game for visual testing of
  * minidraw based graphics.
@@ -171,7 +173,12 @@ public class StubGame2 implements Game {
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {gameObserver.tileFocusChangedAt(p);}
   public void changeProductionInCityAt( Position p, String unitType ) {gameObserver.tileFocusChangedAt(p);}
-  public void performUnitActionAt( Position p ) {}
+  public void performUnitActionAt( Position p ) {
+    System.out.println( "-- StubGame2 / performUnitAction called at Position : " + p);
+    Unit unit = getUnitAt(p);
+    String unitName = unit.getTypeString();
+    Player owner = unit.getOwner();
+  }
 
   public void setTileFocus(Position position) {
     // TODO: setTileFocus implementation pending.
