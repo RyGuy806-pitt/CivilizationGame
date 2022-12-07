@@ -47,9 +47,11 @@ public class StubGame2 implements Game {
 
   private Unit red_archer;
   private Unit spawn_archer_red;
+  private City spawn_city_red;
   private Position pos_city_red;
   private Position pos_city_blue;
   private Position pos_spawn_red_archer = null;
+  private Position pos_spawn_red_city= null;
   int age = -4000;
 
   public Unit getUnitAt(Position p) {
@@ -78,6 +80,9 @@ public class StubGame2 implements Game {
     }
     if( p.equals(pos_city_blue) ) {
       return new StubCity(pos_city_blue, ARCHER, Player.BLUE);
+    }
+    if( p.equals(pos_spawn_red_city)){
+      return new StubCity(pos_spawn_red_city, ARCHER, Player.RED);
     }
     return null;
   }
@@ -175,9 +180,9 @@ public class StubGame2 implements Game {
   public void changeProductionInCityAt( Position p, String unitType ) {gameObserver.tileFocusChangedAt(p);}
   public void performUnitActionAt( Position p ) {
     System.out.println( "-- StubGame2 / performUnitAction called at Position : " + p);
-    Unit unit = getUnitAt(p);
-    String unitName = unit.getTypeString();
-    Player owner = unit.getOwner();
+    if(p.equals(pos_settler_red)){
+      spawnCityAt(p);
+    }
   }
 
   public void setTileFocus(Position position) {
@@ -190,6 +195,12 @@ public class StubGame2 implements Game {
 
   public void spawnUnitAt(Position position) {
     spawn_archer_red = new StubUnit(GameConstants.ARCHER, Player.RED);
+    gameObserver.worldChangedAt(position);
+  }
+
+  public void spawnCityAt(Position position){
+    pos_spawn_red_city = position;
+    spawn_city_red = new StubCity(position, ARCHER, Player.RED);
     gameObserver.worldChangedAt(position);
   }
 
