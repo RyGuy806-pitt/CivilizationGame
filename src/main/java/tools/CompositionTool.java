@@ -48,15 +48,8 @@ public class CompositionTool extends SelectionTool {
             tool.mouseDown(e, x, y);
         }
     }
-    public void mouseDrag(MouseEvent e, int x, int y) {
-        tool.mouseDrag(e, x, y);
-    }
-
     public void mouseUp(MouseEvent e, int x, int y) {
         tool.mouseUp(e, x, y);
     }
 
-    public void mouseMove(MouseEvent evt, int x, int y) {
-        tool.mouseMove(evt, x, y);
-    }
 }
