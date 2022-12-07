@@ -4,12 +4,14 @@ import minidraw.standard.*;
 import minidraw.framework.*;
 
 import java.awt.*;
+import java.awt.datatransfer.SystemFlavorMap;
 import java.awt.event.*;
 import javax.swing.*;
 
 import hotciv.framework.*;
 import hotciv.view.*;
 import hotciv.stub.*;
+import tools.CompositionTool;
 
 /** Template code for exercise FRS 36.44.
 
@@ -39,6 +41,7 @@ public class ShowComposition {
     editor.showStatus("Click and drag any item to see Game's proper response.");
 
     // TODO: Replace the setting of the tool with your CompositionTool implementation.
-    editor.setTool( new NullTool() );
+    editor.setTool( new CompositionTool(game, editor) );
+    System.out.println("CompositionTool: valid tool selected");
   }
 }
