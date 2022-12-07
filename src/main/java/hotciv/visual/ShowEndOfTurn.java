@@ -10,6 +10,7 @@ import javax.swing.*;
 import hotciv.framework.*;
 import hotciv.view.*;
 import hotciv.stub.*;
+import tools.EndOfTurnTool;
 
 /** Template code for exercise FRS 36.42.
 
@@ -37,8 +38,8 @@ public class ShowEndOfTurn {
                                new HotCivFactory4(game) );
     editor.open();
     editor.showStatus("Click to shield to see Game's endOfTurn method being called.");
-
     // TODO: Replace the setting of the tool with your EndOfTurnTool implementation.
-    editor.setTool( new NullTool() );
+    editor.setTool( new EndOfTurnTool(game, editor) );
+    System.out.println("EndOfTurnTool: valid tool selected");
   }
 }
