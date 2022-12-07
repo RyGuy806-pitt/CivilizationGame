@@ -17,42 +17,46 @@ import java.awt.event.MouseEvent;
 public class CompositionTool extends SelectionTool {
     private Game game;
     private Tool tool;
-    private ActionTool ActionTool;
-    private EndOfTurnTool EndOfTurnTool;
-    private SetFocusTool SetFocusTool;
-    private UnitMoveTool UnitMoveTool;
     public CompositionTool(Game game, DrawingEditor editor) {
         super(editor);
         this.game = game;
-
-        ActionTool = new ActionTool(game, editor);
-        EndOfTurnTool = new EndOfTurnTool(game, editor);
-        SetFocusTool = new SetFocusTool(game, editor);
-        UnitMoveTool = new UnitMoveTool(game, editor);
+        tool = new NullTool();
     }
 
     @Override
     public void mouseDown(MouseEvent e, int x, int y) {
         super.mouseDown(e, x, y);
 
-        ActionTool.mouseDown(e,x,y);
-        EndOfTurnTool.mouseDown(e,x,y);
-        SetFocusTool.mouseDown(e,x,y);
-        UnitMoveTool.mouseDown(e,x,y);
+        if(e.isShiftDown()) {
+            tool = new ActionTool(game, editor());
+            tool.mouseDown(e, x, y);
+        } else if(y >= GfxConstants.MAP_OFFSET_Y
+                && y <= GfxConstants.MAP_OFFSET_Y+GameConstants.WORLDSIZE*GfxConstants.TILESIZE
+                && x >= GfxConstants.MAP_OFFSET_X
+                && x <= GfxConstants.MAP_OFFSET_X+GameConstants.WORLDSIZE*GfxConstants.TILESIZE) {
+            tool = new SetFocusTool(game, editor());
+            tool.mouseDown(e, x, y);
+            Figure figure = editor().drawing().findFigure(x, y);
+            if(figure != null && figure.getClass().equals(UnitFigure.class)) {
+                tool = new UnitMoveTool(game, editor());
+                tool.mouseDown(e, x, y);
+            }
+        } else {
+            if(y <= GfxConstants.UNIT_SHIELD_Y - 20) {
+                tool = new EndOfTurnTool(game, editor());
+            }
+            tool.mouseDown(e, x, y);
+        }
+    }
+    public void mouseDrag(MouseEvent e, int x, int y) {
+        tool.mouseDrag(e, x, y);
     }
 
-    @Override
     public void mouseUp(MouseEvent e, int x, int y) {
-        super.mouseUp(e,x,y);
-
-        UnitMoveTool.mouseUp(e,x,y);
+        tool.mouseUp(e, x, y);
     }
 
-//    public Position getCityInFocus() {
-//        return cityInFocus;
-//    }
-//
-//    public void setCityInFocus(Position cityInFocus) {
-//        this.cityInFocus = cityInFocus;
-//    }
+    public void mouseMove(MouseEvent evt, int x, int y) {
+        tool.mouseMove(evt, x, y);
+    }
 }
