@@ -104,7 +104,7 @@ public class CivDrawing
       for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
         p = new Position(r,c);
         Unit unit = game.getUnitAt(p);
-        if ( unit != null ) {
+        if ( unit != null && unit.getTypeString() != "nothing") {
           String type = unit.getTypeString();
           // convert the unit's Position to (x,y) coordinates
           Point point = new Point( GfxConstants.getXFromColumn(p.getColumn()),
@@ -258,7 +258,7 @@ public class CivDrawing
 
   public void showUnitInformation(Position position){
     Unit u = game.getUnitAt(position);
-    if(u == null){
+    if(u == null && u.getTypeString() == "nothing"){
       return;
     }
     Player owner = Player.RED;
