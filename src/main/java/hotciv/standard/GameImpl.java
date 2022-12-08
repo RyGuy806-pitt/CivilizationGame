@@ -317,46 +317,46 @@ public class GameImpl implements Game {
         //if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing") || (unitMap.get(new Position(row-1, column)) == null)) {
       if(unitMap.get(new Position(row-1, column)) == null){
           c.DecrementTreasury();
-          unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
+          unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, c.getOwner()));
           WorldChangeUpdateSpy(new Position(row - 1, column));
         }
       else if ((unitMap.get(new Position(row-1, column+1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), Product, Player.BLUE));
+        unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position(row - 1, column+1));
       }
       else if((unitMap.get(new Position( row, column+1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), Product, Player.BLUE));
+        unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row, column+1));
       }
       else if((unitMap.get(new Position( row+1, column+1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), Product, Player.BLUE));
+        unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row+1, column+1));
       }
       else if((unitMap.get(new Position( row+1, column)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), Product, Player.BLUE));
+        unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row+1, column));
       }else if((unitMap.get(new Position( row+1, column-1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), Product, Player.BLUE));
+        unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row+1, column-1));
       }
       else if((unitMap.get(new Position( row, column-1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
+        unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row, column-1));
       }
       else if((unitMap.get(new Position( row-1, column-1)) == null)) {
         c.DecrementTreasury();
-        unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
+        unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row-1, column-1));
       }
       else {
         c.DecrementTreasury();
-        unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), Product, Player.BLUE));
+        unitMap.put(new Position( row, column), new UnitImpl(new Position(row, column), Product, c.getOwner()));
         WorldChangeUpdateSpy(new Position( row, column));
       }
 
