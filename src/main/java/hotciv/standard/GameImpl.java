@@ -235,8 +235,10 @@ public class GameImpl implements Game {
       if(cityMap.get(new Position(4, 1)) != null) {
         produceTroopForCity(cityMap.get(new Position(4, 1)));
         produceTroopForCity(cityMap.get(new Position(1, 1)));
-      }
-      else {
+      } else if(cityMap.get(new Position(8, 12)) != null) {
+        produceTroopForCity(cityMap.get(new Position(4, 5)));
+        produceTroopForCity(cityMap.get(new Position(8, 12)));
+      } else {
         //do nothing
       }
     }
@@ -312,43 +314,42 @@ public class GameImpl implements Game {
     String Product = c.getProduction();
 
     if(Treasury_value >= c.getProductCost()){
-      if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
-        c.DecrementTreasury();
-        unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
-        for (GameObserver observer : Obs) {
-          observer.worldChangedAt(new Position(row - 1, column));
+        //if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing") || (unitMap.get(new Position(row-1, column)) == null)) {
+      if(unitMap.get(new Position(row-1, column)) == null){
+          c.DecrementTreasury();
+          unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
+          WorldChangeUpdateSpy(new Position(row - 1, column));
         }
-      }
-      else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
+      else if ((unitMap.get(new Position(row-1, column+1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position(row - 1, column+1), new UnitImpl(new Position(row - 1, column+1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position(row - 1, column+1));
       }
-      else if((unitMap.get(new Position( row, column+1)).getTypeString() == "nothing")) {
+      else if((unitMap.get(new Position( row, column+1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row, column+1), new UnitImpl(new Position(row, column + 1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row, column+1));
       }
-      else if((unitMap.get(new Position( row+1, column+1)).getTypeString() == "nothing")) {
+      else if((unitMap.get(new Position( row+1, column+1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column+1), new UnitImpl(new Position(row+1, column + 1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row+1, column+1));
       }
-      else if((unitMap.get(new Position( row+1, column)).getTypeString() == "nothing")) {
+      else if((unitMap.get(new Position( row+1, column)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column), new UnitImpl(new Position(row+1, column), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row+1, column));
-      }else if((unitMap.get(new Position( row+1, column-1)).getTypeString() == "nothing")) {
+      }else if((unitMap.get(new Position( row+1, column-1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row+1, column-1), new UnitImpl(new Position(row+1, column-1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row+1, column-1));
       }
-      else if((unitMap.get(new Position( row, column-1)).getTypeString() == "nothing")) {
+      else if((unitMap.get(new Position( row, column-1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row, column-1));
       }
-      else if((unitMap.get(new Position( row-1, column-1)).getTypeString() == "nothing")) {
+      else if((unitMap.get(new Position( row-1, column-1)) == null)) {
         c.DecrementTreasury();
         unitMap.put(new Position( row-1, column-1), new UnitImpl(new Position(row, column-1), Product, Player.BLUE));
         WorldChangeUpdateSpy(new Position( row-1, column-1));
