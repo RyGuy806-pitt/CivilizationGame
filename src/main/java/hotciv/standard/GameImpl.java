@@ -295,7 +295,9 @@ public class GameImpl implements Game {
 
   @Override
   public void setTileFocus(Position position) {
-
+    for (GameObserver observer : Obs) {
+      observer.tileFocusChangedAt(position);
+    }
     //TileFocusUpdateSpy(position);
   }
 
@@ -313,7 +315,9 @@ public class GameImpl implements Game {
       if((unitMap.get(new Position(row-1, column)).getTypeString() == "nothing")) {
         c.DecrementTreasury();
         unitMap.put(new Position(row - 1, column), new UnitImpl(new Position(row - 1, column), Product, Player.BLUE));
-        WorldChangeUpdateSpy(new Position(row - 1, column));
+        for (GameObserver observer : Obs) {
+          observer.worldChangedAt(new Position(row - 1, column));
+        }
       }
       else if ((unitMap.get(new Position(row-1, column+1)).getTypeString() == "nothing")) {
         c.DecrementTreasury();

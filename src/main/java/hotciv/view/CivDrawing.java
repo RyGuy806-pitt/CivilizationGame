@@ -258,7 +258,10 @@ public class CivDrawing
 
   public void showUnitInformation(Position position){
     Unit u = game.getUnitAt(position);
-    if(u == null && u.getTypeString() == "nothing"){
+    if(u == null){
+      return;
+    }
+    if(u.getTypeString() == "nothing"){
       return;
     }
     Player owner = Player.RED;
