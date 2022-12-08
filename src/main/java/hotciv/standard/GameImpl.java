@@ -40,6 +40,7 @@ import static hotciv.framework.GameConstants.*;
 
 public class GameImpl implements Game {
   private int year = -4000;
+
   int movesThisTurn = 0;
   private int redPlayerWinCounter = 0;
   private int bluePlayerWinCounter = 0;
@@ -107,8 +108,7 @@ public class GameImpl implements Game {
     year =  AgingStrat.calculateTime();
   }
 
-  public boolean performAttack(Position to, Position from){
-    return AttackStrat.attack(this, to, from);
+  public boolean performAttack(Position to, Position from){ return AttackStrat.attack(this, to, from);
   }
   public boolean moveUnit( Position from, Position to ) {
     //replace with none
@@ -189,7 +189,7 @@ public class GameImpl implements Game {
         }
 
         unitMap.remove(from);
-        unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
+        //unitMap.put(from, new UnitImpl(from, "nothing", Player.GREEN));
         unitMap.remove(to);
         if (cityMap.get(to) != null) {
           cityMap.put(to, new CityImpl(to, type, own));
@@ -200,6 +200,7 @@ public class GameImpl implements Game {
         TileFocusUpdateSpy(to);
         for (GameObserver observer : Obs) {
           observer.worldChangedAt(to);
+          observer.tileFocusChangedAt(to);
         }
         return true;
       }
@@ -223,8 +224,10 @@ public class GameImpl implements Game {
       //this part needs to take a position input of the city in its own function
       for(int i = 0; i<WORLDSIZE; i++){
         for(int j = 0; j<WORLDSIZE; j++){
-          if(unitMap.get(new Position(i, j)).getTypeString() != "nothing"){
-            unitMap.get(new Position(i, j)).resetMoveCount();
+          if(unitMap.get(new Position(i,j)) != null) {
+            if (unitMap.get(new Position(i, j)).getTypeString() != "nothing") {
+              unitMap.get(new Position(i, j)).resetMoveCount();
+            }
           }
         }
       }
@@ -241,6 +244,9 @@ public class GameImpl implements Game {
     }
     //year = year + 100;
     calculateAge();
+    for(GameObserver observer: Obs){
+      observer.turnEnds(getPlayerInTurn(), getAge());
+    }
     EndOfTurnUpdateSpy();
   }
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {

@@ -21,7 +21,7 @@ public class EpsilonAttack implements Attack{
         //true allows the unit to move, and will destroy the other unit
         //false will need to destroy the attacking unit
         boolean ret = true;
-        if((game.getUnitAt(to).getTypeString() != "nothing") && (game.getUnitAt(from).getTypeString() != "nothing")){
+        if((game.getUnitAt(to).getTypeString() != "nothing" && game.getUnitAt(to) != null) && (game.getUnitAt(from).getTypeString() != "nothing" && game.getUnitAt(from) != null)){
             if(totalDefensiveStrength(game, to, game.getUnitAt(to).getOwner()) > totalOffensiveStrength(game, from, game.getUnitAt(from).getOwner())){
                ret = false;
             }
