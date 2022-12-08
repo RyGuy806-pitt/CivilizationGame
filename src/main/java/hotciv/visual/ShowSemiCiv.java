@@ -13,7 +13,7 @@ import tools.CompositionTool;
 
 public class ShowSemiCiv {
     public static void main(String[] args) {
-            GameImpl game = new GameImpl(new SemiVersion());
+            Game game = new GameImpl(new SemiVersion());
 
             DrawingEditor editor =
                     new MiniDrawApplication( "SemiCiv",

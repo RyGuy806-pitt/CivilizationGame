@@ -67,7 +67,7 @@ public class GameImpl implements Game {
       for(int j=0; j<WORLDSIZE; j++) {
         Position p = new Position(i, j);
         tileMap.put(p, new TileImpl(p, PLAINS));
-        unitMap.put(p, new UnitImpl(p, "nothing", Player.GREEN));
+        //unitMap.put(p, new UnitImpl(p, "nothing", Player.GREEN));
       }
     }
 
@@ -115,28 +115,58 @@ public class GameImpl implements Game {
     //rewrite unit at map location
     int row, col = 0;
     UnitImpl unit = unitMap.get(from);
+    if(unit == null ){
+      return false;
+    }
     if(unit.getMoveCount()==0){
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     }
     if(tileMap.get(to).getTypeString()==OCEANS){
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     }
-    if(getUnitAt(from).getOwner()==getUnitAt(to).getOwner()){
-      return false;
+    if(unitMap.get(to) != null) {
+      if (unit.getOwner() == unitMap.get(to).getOwner()) {
+        for (GameObserver observer : Obs) {
+          observer.worldChangedAt(from);
+        }
+        return false;
+      }
     }
     row = from.getRow()- to.getRow();
     col = from.getColumn() - to.getColumn();
     if(-1 > row){
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     } else if(row > 1) {
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     } else if(-1 > col){
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     } else if(col > 1) {
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
+      //SOS help
       return false;
     }
 
     if(getPlayerInTurn() != getUnitAt(from).getOwner()){
+      for (GameObserver observer : Obs) {
+        observer.worldChangedAt(from);
+      }
       return false;
     }
     WorldChangeUpdateSpy(from);
@@ -166,8 +196,11 @@ public class GameImpl implements Game {
         }
         unitMap.put(to, new UnitImpl(to, type, own));
         unitMap.get(to).setMoveCount(unit.getMoveCount() - 1);
-        WorldChangeUpdateSpy(to);
+        //WorldChangeUpdateSpy(to);
         TileFocusUpdateSpy(to);
+        for (GameObserver observer : Obs) {
+          observer.worldChangedAt(to);
+        }
         return true;
       }
     }
@@ -220,6 +253,9 @@ public class GameImpl implements Game {
   }
   public void performUnitActionAt( Position p ) {
     UnitActionStrat.setUnitAction(this, p, unitMap, cityMap, tileMap);
+    for (GameObserver observer : Obs) {
+      observer.worldChangedAt(p);
+    }
   }
 
   @Override
@@ -253,7 +289,8 @@ public class GameImpl implements Game {
 
   @Override
   public void setTileFocus(Position position) {
-    TileFocusUpdateSpy(position);
+
+    //TileFocusUpdateSpy(position);
   }
 
   public void produceTroopForCity(CityImpl c){
