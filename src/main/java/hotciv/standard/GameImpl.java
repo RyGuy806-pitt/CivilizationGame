@@ -236,8 +236,11 @@ public class GameImpl implements Game {
         produceTroopForCity(cityMap.get(new Position(4, 1)));
         produceTroopForCity(cityMap.get(new Position(1, 1)));
       } else if(cityMap.get(new Position(8, 12)) != null) {
-        produceTroopForCity(cityMap.get(new Position(4, 5)));
-        produceTroopForCity(cityMap.get(new Position(8, 12)));
+//        produceTroopForCity(cityMap.get(new Position(4, 5)));
+//        produceTroopForCity(cityMap.get(new Position(8, 12)));
+        for (Position cityImpl : cityMap.keySet()){
+          produceTroopForCity(cityMap.get(cityImpl));
+        }
       } else {
         //do nothing
       }
